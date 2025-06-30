@@ -13,12 +13,27 @@
       background-color: #0f0f0f;
       color: #f5e6c8;
       line-height: 1.6;
+      scroll-behavior: smooth;
     }
 
     section, footer {
       padding: 60px 20px;
       max-width: 1000px;
       margin: auto;
+    }
+
+    .divider {
+      border: none;
+      height: 1px;
+      background: repeating-linear-gradient(
+        to right,
+        gold,
+        gold 4px,
+        transparent 4px,
+        transparent 8px
+      );
+      margin: 60px auto;
+      max-width: 200px;
     }
 
     .hero {
@@ -31,6 +46,12 @@
       max-width: 90vw;
       margin-bottom: 30px;
       filter: drop-shadow(0 0 12px gold);
+      animation: glow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { filter: drop-shadow(0 0 8px gold); }
+      to   { filter: drop-shadow(0 0 18px gold); }
     }
 
     .hero h1 {
@@ -125,6 +146,36 @@
       padding-top: 20px;
     }
 
+    /* Floating Navigation */
+    .floating-nav {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .floating-nav a {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      background: gold;
+      color: #0f0f0f;
+      text-align: center;
+      line-height: 50px;
+      font-size: 16px;
+      border-radius: 50%;
+      box-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .floating-nav a:hover {
+      background: #ffe066;
+    }
+
     @media (max-width: 768px) {
       .services, .testimonials {
         grid-template-columns: 1fr;
@@ -141,10 +192,25 @@
       .hero img {
         width: 240px;
       }
+
+      .floating-nav a {
+        width: 40px;
+        height: 40px;
+        line-height: 40px;
+        font-size: 14px;
+      }
     }
   </style>
 </head>
 <body>
+
+  <!-- Floating Navigation -->
+  <div class="floating-nav">
+    <a href="#about" title="About">A</a>
+    <a href="#services" title="Services">S</a>
+    <a href="#testimonials" title="Words">W</a>
+    <a href="#contact" title="Contact">C</a>
+  </div>
 
   <!-- Hero Section -->
   <section class="hero">
@@ -155,6 +221,8 @@
       Explore Services
     </button>
   </section>
+
+  <hr class="divider" />
 
   <!-- About Section -->
   <section id="about">
@@ -169,6 +237,8 @@
       honesty, and sacred science.
     </p>
   </section>
+
+  <hr class="divider" />
 
   <!-- Services Section -->
   <section id="services">
@@ -193,6 +263,8 @@
     </div>
   </section>
 
+  <hr class="divider" />
+
   <!-- Testimonials Section -->
   <section id="testimonials">
     <h2>Client Experiences</h2>
@@ -216,6 +288,8 @@
     </div>
   </section>
 
+  <hr class="divider" />
+
   <!-- Contact Section -->
   <section id="contact">
     <h2>Connect with Saurhin</h2>
@@ -225,7 +299,6 @@
     </div>
   </section>
 
-  <!-- Footer -->
   <footer>
     © 2025 Tantrasya – The Sacred Path by Saurhin Parikh. All rights reserved.
   </footer>
