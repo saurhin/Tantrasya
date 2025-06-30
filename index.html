@@ -32,22 +32,17 @@
       overflow: hidden;
     }
 
-    .seed-bg {
+    .hero-background {
       position: absolute;
       top: 50%;
       left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 0;
+      transform: translate(-50%, -50%) scale(5); /* scales the image 5x */
       opacity: 0.06;
+      z-index: 0;
       pointer-events: none;
     }
 
-    .seed-bg img {
-      width: 1000px;
-      max-width: 180vw;
-    }
-
-    .hero img {
+    .hero img.logo {
       width: 140px;
       margin-bottom: 20px;
       filter: drop-shadow(0 0 10px gold);
@@ -131,8 +126,8 @@
         font-size: 1.2em;
       }
 
-      .seed-bg img {
-        width: 140vw;
+      .hero-background {
+        transform: translate(-50%, -50%) scale(3);
       }
     }
   </style>
@@ -141,10 +136,8 @@
 
   <!-- Hero Section -->
   <section class="hero">
-    <div class="seed-bg">
-      <img src="seed-of-life.jpg" alt="Seed of Life" />
-    </div>
-    <img src="tantrasya-logo.png" alt="Tantrasya Logo" />
+    <img src="seed-of-life.jpg" alt="Seed of Life Background" class="hero-background" />
+    <img src="tantrasya-logo.png" alt="Tantrasya Logo" class="logo" />
     <h1>TANTRASYA</h1>
     <p>The Sacred Path of Tantra, Healing, and Cosmic Insight by Saurhin Parikh</p>
     <button class="btn" onclick="document.getElementById('services').scrollIntoView({ behavior: 'smooth' });">
@@ -194,7 +187,7 @@
     <h2>Connect with Saurhin</h2>
     <div class="contact-form">
       <p>Email: <a href="mailto:saurhinparikh@gmail.com">saurhinparikh@gmail.com</a></p>
-     
+      <p>Instagram / WhatsApp / Phone details can be added here if needed later.</p>
     </div>
   </section>
 
