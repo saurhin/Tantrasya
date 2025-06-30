@@ -14,13 +14,13 @@
       color: #f5e6c8;
       line-height: 1.6;
     }
+
     header, section, footer {
       padding: 60px 20px;
       max-width: 1000px;
       margin: auto;
     }
 
-    /* Hero Section Styling */
     .hero {
       position: relative;
       height: 100vh;
@@ -32,21 +32,19 @@
       overflow: hidden;
     }
 
-    /* Enlarged Seed of Life background */
-    .hero::before {
-      content: "";
+    .seed-bg {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background-image: url('seed-of-life.jpg');
-      background-size: 300%;
-      background-repeat: no-repeat;
-      background-position: center;
-      opacity: 0.1; /* Adjust for subtlety */
-      width: 200%;
-      height: 200%;
       z-index: 0;
+      opacity: 0.06;
+      pointer-events: none;
+    }
+
+    .seed-bg img {
+      width: 1000px;
+      max-width: 180vw;
     }
 
     .hero img {
@@ -124,6 +122,18 @@
       .services {
         grid-template-columns: 1fr;
       }
+
+      .hero h1 {
+        font-size: 2.8em;
+      }
+
+      .hero p {
+        font-size: 1.2em;
+      }
+
+      .seed-bg img {
+        width: 140vw;
+      }
     }
   </style>
 </head>
@@ -131,6 +141,9 @@
 
   <!-- Hero Section -->
   <section class="hero">
+    <div class="seed-bg">
+      <img src="seed-of-life.jpg" alt="Seed of Life" />
+    </div>
     <img src="tantrasya-logo.png" alt="Tantrasya Logo" />
     <h1>TANTRASYA</h1>
     <p>The Sacred Path of Tantra, Healing, and Cosmic Insight by Saurhin Parikh</p>
@@ -191,4 +204,4 @@
   </footer>
 
 </body>
-</html> 
+</html>
