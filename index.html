@@ -22,47 +22,30 @@
     }
 
     .hero {
-      position: relative;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
       text-align: center;
-      overflow: hidden;
+      padding: 100px 20px;
     }
 
-    .hero-background {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(5); /* scales the image 5x */
-      opacity: 0.06;
-      z-index: 0;
-      pointer-events: none;
-    }
-
-    .hero img.logo {
-      width: 140px;
-      margin-bottom: 20px;
+    .hero img {
+      width: 320px; /* increase or decrease this value as needed */
+      max-width: 90vw;
+      margin-bottom: 30px;
       filter: drop-shadow(0 0 10px gold);
-      z-index: 1;
     }
 
     .hero h1 {
-      font-size: 4em;
+      font-size: 3.5em;
       margin: 0;
       color: gold;
       text-shadow: 2px 2px 6px #000;
-      z-index: 1;
     }
 
     .hero p {
       font-size: 1.5em;
       margin-top: 0.5em;
       max-width: 600px;
-      z-index: 1;
-      position: relative;
+      margin-left: auto;
+      margin-right: auto;
     }
 
     .btn {
@@ -74,8 +57,6 @@
       border-radius: 4px;
       cursor: pointer;
       font-size: 1em;
-      z-index: 1;
-      position: relative;
     }
 
     h2 {
@@ -126,8 +107,8 @@
         font-size: 1.2em;
       }
 
-      .hero-background {
-        transform: translate(-50%, -50%) scale(3);
+      .hero img {
+        width: 240px;
       }
     }
   </style>
@@ -136,8 +117,7 @@
 
   <!-- Hero Section -->
   <section class="hero">
-    <img src="tantrasya-logo.png" alt="Seed of Life Background" class="hero-background" />
-    <img src="tantrasya-logo.png" alt="Tantrasya Logo" class="logo" />
+    <img src="tantrasya-logo.png" alt="Tantrasya Logo" />
     <h1>TANTRASYA</h1>
     <p>The Sacred Path of Tantra, Healing, and Cosmic Insight by Saurhin Parikh</p>
     <button class="btn" onclick="document.getElementById('services').scrollIntoView({ behavior: 'smooth' });">
