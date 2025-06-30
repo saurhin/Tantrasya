@@ -19,34 +19,59 @@
       max-width: 1000px;
       margin: auto;
     }
+
+    /* Hero Section Styling */
     .hero {
-  height: 100vh;
-  background-image: url('seed-of-life.jpg');
-  background-size: 300%; /* makes it 3x larger */
-  background-position: center;
-  background-repeat: no-repeat;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
+      position: relative;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    /* Enlarged Seed of Life background */
+    .hero::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-image: url('seed-of-life.jpg');
+      background-size: 300%;
+      background-repeat: no-repeat;
+      background-position: center;
+      opacity: 0.1; /* Adjust for subtlety */
+      width: 200%;
+      height: 200%;
+      z-index: 0;
+    }
+
     .hero img {
       width: 140px;
       margin-bottom: 20px;
       filter: drop-shadow(0 0 10px gold);
+      z-index: 1;
     }
+
     .hero h1 {
       font-size: 4em;
       margin: 0;
       color: gold;
       text-shadow: 2px 2px 6px #000;
+      z-index: 1;
     }
+
     .hero p {
       font-size: 1.5em;
       margin-top: 0.5em;
       max-width: 600px;
+      z-index: 1;
+      position: relative;
     }
+
     .btn {
       margin-top: 20px;
       background: gold;
@@ -56,29 +81,37 @@
       border-radius: 4px;
       cursor: pointer;
       font-size: 1em;
+      z-index: 1;
+      position: relative;
     }
+
     h2 {
       color: gold;
       font-size: 2.2em;
       margin-bottom: 20px;
       text-align: center;
     }
+
     .services {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 40px;
     }
+
     .services div {
       background: rgba(255, 215, 0, 0.08);
       padding: 20px;
       border-radius: 10px;
     }
+
     .contact-form {
       text-align: center;
     }
+
     .contact-form p {
       font-size: 1.1em;
     }
+
     footer {
       text-align: center;
       font-size: 0.9em;
@@ -86,6 +119,7 @@
       margin-top: 60px;
       padding-top: 20px;
     }
+
     @media (max-width: 768px) {
       .services {
         grid-template-columns: 1fr;
@@ -147,7 +181,7 @@
     <h2>Connect with Saurhin</h2>
     <div class="contact-form">
       <p>Email: <a href="mailto:saurhinparikh@gmail.com">saurhinparikh@gmail.com</a></p>
-     
+      <p>Instagram / WhatsApp / Phone details can be added here if needed later.</p>
     </div>
   </section>
 
