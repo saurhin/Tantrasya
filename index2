@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Tantrasya – Sacred Healing by Saurhin Parikh" />
+  <title>Tantrasya – Occult Healing by Saurhin Parikh</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Cinzel Decorative', serif;
+      background-color: #0f0f0f;
+      color: #f5e6c8;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    section, footer {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    .hero {
+      text-align: center;
+      padding: 100px 20px 60px;
+    }
+
+    .hero img {
+      width: 340px;
+      max-width: 90vw;
+      margin-bottom: 30px;
+      filter: drop-shadow(0 0 12px gold);
+      animation: glow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { filter: drop-shadow(0 0 8px gold); }
+      to   { filter: drop-shadow(0 0 18px gold); }
+    }
+
+    .hero h1 {
+      font-size: 3.8em;
+      margin: 0;
+      color: gold;
+      text-shadow: 2px 2px 8px #000;
+    }
+
+    .hero p {
+      font-size: 1.5em;
+      margin-top: 0.5em;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .btn {
+      margin-top: 30px;
+      background: linear-gradient(to right, gold, #e6c86e);
+      color: #0f0f0f;
+      padding: 14px 30px;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 1em;
+      box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: linear-gradient(to right, #ffe066, gold);
+    }
+
+    h2 {
+      color: gold;
+      font-size: 2.2em;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .services {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+
+    .services div {
+      background: rgba(255, 215, 0, 0.08);
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(255, 215, 0, 0.05);
+    }
+
+    .services h3 {
+      color: #ffdf70;
+      margin-bottom: 10px;
+    }
+
+    .contact-form {
+      text-align: center;
+    }
+
+    .contact-form p {
+      font-size: 1.1em;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9em;
+      border-top: 1px solid #444;
+      margin-top: 60px;
+      padding-top: 20px;
+    }
+
+    .floating-nav {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      z-index: 999;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .floating-nav a {
+      display: inline-block;
+      background: gold;
+      color: #0f0f0f;
+      text-decoration: none;
+      padding: 10px 18px;
+      border-radius: 20px;
+      font-size: 14px;
+      font-weight: bold;
+      box-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+      transition: all 0.3s ease;
+      text-align: center;
+      min-width: 100px;
+    }
+
+    .floating-nav a:hover {
+      background: #ffe066;
+      box-shadow: 0 0 12px rgba(255, 215, 0, 0.6);
+    }
+
+    @media (max-width: 768px) {
+      .services {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 2.8em;
+      }
+
+      .hero p {
+        font-size: 1.2em;
+      }
+
+      .hero img {
+        width: 240px;
+      }
+
+      .floating-nav a {
+        font-size: 13px;
+        padding: 8px 14px;
+        min-width: 90px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="floating-nav">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#testimonials">Testimonials</a>
+    <a href="#contact">Contact</a>
+  </div>
+
+  <section class="hero">
+    <img src="tantrasya-logo.png" alt="Tantrasya Logo" />
+    <h1>TANTRASYA</h1>
+    <p>The Sacred Path of Tantra, Healing, and Cosmic Insight by Saurhin Parikh</p>
+    <button class="btn" onclick="document.getElementById('services').scrollIntoView({ behavior: 'smooth' });">
+      Explore Services
+    </button>
+  </section>
+
+  <section id="about">
+    <h2>About Tantrasya</h2>
+    <p>
+      “Tantrasya” means “to seek and search” – not just knowledge, but transformation through energy, healing, mantra,
+      and sacred intent. Rooted in the mystical traditions of Tantra and informed by cosmic intuition, Tantrasya is
+      guided by Saurhin Parikh, an experienced occultist, clairsentient, and energy healer.
+    </p>
+    <p>
+      With deep ethics and humility, Tantrasya works beyond appearances – no robes, no guru gimmicks – just energy,
+      honesty, and sacred science.
+    </p>
+  </section>
+
+  <section id="services">
+    <h2>Services Offered</h2>
+    <div class="services">
+      <div>
+        <h3>Crystal Energy Healing</h3>
+        <p>Personalized crystal consultations, aura diagnosis, and sacred pairing of stones based on energy fields.</p>
+      </div>
+      <div>
+        <h3>Mantra & Ritual Therapy</h3>
+        <p>Powerful sound vibrations, custom mantras, and tantra-based techniques for deep transformation.</p>
+      </div>
+      <div>
+        <h3>Chakra Analysis</h3>
+        <p>Identify blockages across physical and emotional planes, realign your energy with ancient techniques.</p>
+      </div>
+      <div>
+        <h3>Clairsentient Consultation</h3>
+        <p>Feelings that don’t lie – connect to deeper truths, karmic knots, and intuitive insights from the subtle realms.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="testimonials">
+    <h2>Client Testimonials</h2>
+    <p style="text-align:center;">(This section can include a pop-up version later.)</p>
+  </section>
+
+  <section id="contact">
+    <h2>Connect with Saurhin</h2>
+    <div class="contact-form">
+      <p>Email: <a href="mailto:saurhinparikh@gmail.com">saurhinparikh@gmail.com</a></p>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 Tantrasya – The Sacred Path by Saurhin Parikh. All rights reserved.
+  </footer>
+</body>
+</html>
