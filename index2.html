@@ -16,7 +16,7 @@
       scroll-behavior: smooth;
     }
 
-    h1, h2, h3 {
+    .hero h1, h2, .floating-nav a {
       font-family: 'Cinzel Decorative', serif;
     }
 
@@ -215,6 +215,87 @@
   </style>
 </head>
 <body>
-  <!-- Content remains the same as previously updated -->
+
+  <div class="floating-nav">
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#testimonials">Testimonials</a>
+    <a href="#contact">Contact</a>
+  </div>
+
+  <section class="hero">
+    <img src="tantrasya-logo.png" alt="Tantrasya Logo" />
+    <h1>TANTRASYA</h1>
+    <p>Explore the realm of sacred transformation, ritual energy, and intuitive truth by Saurhin Parikh.</p>
+    <button class="btn" onclick="document.getElementById('services').scrollIntoView({ behavior: 'smooth' });">Explore Services</button>
+  </section>
+
+  <section id="about">
+    <h2>About Tantrasya</h2>
+    <p>Tantrasya is not just a name — it is a journey of the soul. Led by Saurhin Parikh, a practitioner rooted in ancient mysticism, it is a path of silent truths and deep resonance.</p>
+    <p>Through Tantra, intuitive healing, and real spiritual experience, Tantrasya stands without titles, beyond trends — just pure intent and sacred guidance.</p>
+  </section>
+
+  <section id="services">
+    <h2>What We Offer</h2>
+    <div class="services">
+      <div>
+        <h3>Energy Healing</h3>
+        <p>Work with crystals, aura scans, and vibrational balance to harmonize your being.</p>
+      </div>
+      <div>
+        <h3>Mantra & Ritual</h3>
+        <p>Invoking ancient sounds and rituals aligned to your karmic blueprint.</p>
+      </div>
+      <div>
+        <h3>Chakra Alignment</h3>
+        <p>Understand and restore your energy centers for physical and subtle healing.</p>
+      </div>
+      <div>
+        <h3>Clairsentient Insights</h3>
+        <p>Gain clarity through intuitive readings, past-life impressions, and soul energies.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="testimonials">
+    <h2>Client Experiences</h2>
+    <div class="testimonial">
+      <div class="short">“This felt like a soul conversation I didn’t know I needed...”</div>
+      <button onclick="document.getElementById('popup1').style.display='block'">Read More</button>
+      <span>– M.A., Pune</span>
+    </div>
+    <div class="testimonial">
+      <div class="short">“Crystal remedies gave me deep sleep after years...”</div>
+      <button onclick="document.getElementById('popup2').style.display='block'">Read More</button>
+      <span>– R.D., Mumbai</span>
+    </div>
+  </section>
+
+  <div id="popup1" class="popup">
+    <div class="content">
+      <p>“Saurhin’s presence is calm yet potent. The reading helped me understand patterns in my life and gave me hope I hadn’t felt in a long time.”</p>
+      <button onclick="document.getElementById('popup1').style.display='none'">Close</button>
+    </div>
+  </div>
+
+  <div id="popup2" class="popup">
+    <div class="content">
+      <p>“His suggestions with crystals and rituals felt divinely timed. I noticed peaceful sleep and a lightness in my chest within days.”</p>
+      <button onclick="document.getElementById('popup2').style.display='none'">Close</button>
+    </div>
+  </div>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <div class="contact-form">
+      <p>Email: <a href="mailto:saurhinparikh@gmail.com">saurhinparikh@gmail.com</a></p>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 Tantrasya – Sacred Work by Saurhin Parikh.
+  </footer>
+
 </body>
 </html>
