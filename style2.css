@@ -1,0 +1,612 @@
+/* CSS Variables for a more vibrant, ethereal theme */
+:root {
+    --color-deep-space: #0A0F1F; /* Very dark blue, almost black */
+    --color-midnight-blue: #1A1E33; /* Dark background for sections */
+    --color-celestial-blue: #4F6D97; /* Muted mid-blue for accents */
+    --color-cosmic-gold: #FFD700; /* Bright, clear gold */
+    --color-ethereal-light: #E0FFFF; /* Aqua-white, almost glowing */
+    --color-amethyst: #8A2BE2; /* A spiritual purple */
+    --color-emerald: #50C878; /* A calming green */
+    --color-sapphire: #2A52BE; /* New: A deep blue for subtle variation */
+
+
+    --text-primary: var(--color-ethereal-light);
+    --text-secondary: var(--color-cosmic-gold);
+    --text-muted: rgba(224, 255, 255, 0.7); /* Slightly transparent for less important text */
+
+    --font-heading: 'Cinzel Decorative', serif;
+    --font-body: 'Lora', serif;
+    --font-display: 'Cinzel Decorative', serif; /* For hero main title */
+
+    --shadow-light-glow: 0 0 15px rgba(255, 215, 0, 0.4);
+    --shadow-deep: 0 8px 25px rgba(0, 0, 0, 0.5);
+    --border-radius-soft: 12px;
+    --transition-speed: 0.4s ease-in-out; /* Slightly slower for smoother animations */
+}
+
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--color-deep-space);
+    color: var(--text-primary);
+    line-height: 1.7; /* Improved line height for readability */
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+.container {
+    max-width: 1100px; /* Slightly wider container */
+    margin: 0 auto;
+    padding: 0 25px; /* More horizontal padding */
+}
+
+/* Headings */
+h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    color: var(--text-secondary); /* Gold for headings */
+    margin-bottom: 1rem;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* Subtle shadow for depth */
+}
+
+h1 { font-size: 4.5em; text-align: center; line-height: 1.1; font-family: var(--font-display); } /* Hero H1 uses Playfair */
+h2 { font-size: 3em; text-align: center; margin-bottom: 3.5rem; position: relative; } /* Larger, centered H2 */
+h2::after { /* Underline effect for H2 */
+    content: '';
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: var(--color-cosmic-gold);
+    margin: 15px auto 0;
+    border-radius: 2px;
+    /* Aesthetic touch: Add a subtle glow to the underline */
+    box-shadow: 0 0 8px var(--color-cosmic-gold);
+}
+h3 { font-size: 2.2em; }
+
+p {
+    margin-bottom: 1.2rem;
+    color: var(--text-muted);
+    /* Aesthetic touch: Subtle text shadow for body paragraphs for depth */
+    text-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.3);
+}
+
+a {
+    color: var(--color-cosmic-gold);
+    text-decoration: none;
+    transition: color var(--transition-speed);
+}
+a:hover {
+    color: var(--color-ethereal-light);
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 16px 35px; /* Larger, more inviting buttons */
+    background: linear-gradient(to right, var(--color-cosmic-gold), var(--color-ethereal-light)); /* Gold to light gradient */
+    color: var(--color-deep-space); /* Dark text on light button */
+    border: none;
+    border-radius: 50px; /* Fully rounded, pill-shaped */
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    box-shadow: 0 5px 15px var(--shadow-light-glow);
+    transition: all var(--transition-speed);
+    font-family: var(--font-heading);
+    /* Aesthetic touch: Slight text shadow for button text */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+.btn:hover {
+    background: linear-gradient(to right, var(--color-ethereal-light), var(--color-cosmic-gold)); /* Reverse gradient on hover */
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.8); /* Stronger glow on hover */
+    transform: translateY(-5px) scale(1.03); /* More pronounced lift */
+}
+
+/* Sections */
+section {
+    padding: 100px 0; /* More generous section padding */
+    position: relative;
+    z-index: 1;
+}
+/* Alternating backgrounds for visual interest */
+section:nth-of-type(odd) {
+    background-color: var(--color-deep-space);
+}
+section:nth-of-type(even) {
+    background-color: var(--color-midnight-blue);
+    /* Aesthetic touch: Subtle inner glow for section separation */
+    box-shadow: inset 0 5px 20px rgba(0,0,0,0.4), inset 0 -5px 20px rgba(0,0,0,0.4);
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    background-image: url('https://via.placeholder.com/1920x1080/0A0F1F/4F6D97?text=Cosmic+Nebula+Background'); /* Ethereal, cosmic placeholder */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden; /* To contain any background animations */
+}
+/* Subtle glowing dots animation on hero background - Enhanced for more dynamism */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at top left, rgba(79, 109, 151, 0.4) 0%, transparent 45%),
+                                 radial-gradient(circle at bottom right, rgba(255, 215, 0, 0.3) 0%, transparent 55%),
+                                 radial-gradient(circle at center, rgba(138, 43, 226, 0.15) 0%, transparent 70%); /* Added third radial gradient */
+    animation: cosmicFadeIn 3s ease-out forwards, subtlePulse 6s ease-in-out infinite alternate; /* Added subtle pulse */
+    z-index: 0;
+}
+
+@keyframes cosmicFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes subtlePulse {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1.02); opacity: 0.95; }
+}
+
+
+.hero img {
+    width: 380px; /* Larger, more prominent logo */
+    max-width: 90vw;
+    margin-bottom: 40px;
+
+    filter: drop-shadow(0 0 25px var(--color-cosmic-gold)); /* More intense glow */
+    animation: glow 3s ease-in-out infinite alternate;
+    z-index: 1; /* Ensure logo is above pseudo-element */
+}
+@keyframes glow {
+    from { filter: drop-shadow(0 0 15px var(--color-cosmic-gold)); }
+    to  { filter: drop-shadow(0 0 30px var(--color-cosmic-gold)); }
+}
+
+.hero h1 {
+    color: var(--color-cosmic-gold); /* Prominent gold for main title */
+    font-size: 5.5em; /* Even larger for dramatic effect */
+    letter-spacing: 2px;
+    /* Aesthetic touch: Stronger text shadow for hero title */
+    text-shadow: 0 0 15px rgba(255, 215, 0, 0.8), 0 0 25px rgba(255, 215, 0, 0.6);
+}
+
+.hero p {
+    font-size: 1.8em; /* Larger, inviting hero text */
+    max-width: 700px;
+    margin: 1.5em auto 3em; /* More spacing */
+    color: var(--color-ethereal-light);
+    text-shadow: 1px 1px 8px rgba(0,0,0,0.9); /* Stronger text shadow for hero paragraph */
+}
+
+/* About Section */
+#about p {
+    max-width: 900px;
+    margin: 0 auto 1.5rem;
+    text-align: center;
+    font-size: 1.15em;
+    color: var(--text-primary); /* Use primary text color for main body text */
+}
+
+/* Services Section */
+.services {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 50px; /* More space between service cards */
+    margin-top: 4rem;
+}
+.services div {
+    background: var(--color-midnight-blue); /* Darker card background */
+    padding: 35px;
+    border-radius: var(--border-radius-soft);
+    box-shadow: var(--shadow-deep);
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    text-align: center;
+    border: 1px solid rgba(255, 215, 0, 0.1); /* Subtle gold border */
+    position: relative; /* For icon positioning */
+    overflow: hidden; /* For inner glow */
+}
+/* Inner glow effect on service cards - Enhanced for visual impact */
+.services div::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle at center, rgba(255, 215, 0, 0.15) 0%, transparent 100%); /* Stronger initial glow */
+    opacity: 0;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all var(--transition-speed);
+    pointer-events: none;
+    z-index: 0; /* Ensure it stays behind content */
+}
+.services div:hover::before {
+    width: 300%; /* Expands more */
+    height: 300%;
+    opacity: 0.5; /* More visible on hover */
+}
+
+.services div:hover {
+    transform: translateY(-15px); /* More pronounced lift */
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.9); /* Deeper shadow on hover */
+    border-color: var(--color-cosmic-gold); /* Gold border on hover */
+}
+.services h3 {
+    font-size: 1.9em; /* Slightly smaller service title for card */
+    margin-bottom: 0.8rem;
+    color: var(--color-cosmic-gold); /* Ensure service titles are gold */
+    text-shadow: 0 0 5px rgba(255, 215, 0, 0.3);
+}
+.services p {
+    color: var(--text-muted);
+    font-size: 1.05em;
+}
+/* Style for your custom image icons */
+.service-icon-img {
+    width: 80px; /* Adjust as needed, but start here */
+    height: 80px; /* Ensure height matches width for square icons */
+    object-fit: contain; /* Prevents image distortion */
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 10px rgba(224, 255, 255, 0.5));
+    transition: filter var(--transition-speed);
+    z-index: 1; /* Ensure icon is above pseudo-element */
+    position: relative;
+}
+.services div:hover .service-icon-img {
+    filter: drop-shadow(0 0 20px var(--color-cosmic-gold)); /* Stronger gold glow on hover */
+}
+
+/* Testimonials Section */
+.testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 40px;
+    margin-top: 4rem;
+}
+.testimonial {
+    background: var(--color-midnight-blue);
+    padding: 30px;
+    border-left: 6px solid var(--color-amethyst); /* Amethyst border for testimonials */
+    border-radius: var(--border-radius-soft);
+    box-shadow: var(--shadow-deep);
+    transition: transform var(--transition-speed), box-left-color var(--transition-speed); /* Transition border-left-color */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Push span to bottom */
+}
+.testimonial:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.7); /* Deeper shadow on hover */
+    border-left-color: var(--color-cosmic-gold); /* Change border on hover */
+}
+.testimonial .short {
+    font-style: italic;
+    font-size: 1.1em;
+    margin-bottom: 15px;
+    color: var(--text-primary);
+    text-shadow: 0.5px 0.5px 1px rgba(0,0,0,0.3); /* Subtle shadow for testimonial text */
+}
+.testimonial span {
+    display: block;
+    margin-top: 15px;
+    text-align: right;
+    font-weight: bold;
+    color: var(--color-celestial-blue); /* Muted blue for name */
+    font-size: 1em;
+    font-family: var(--font-body); /* Ensure it uses body font */
+}
+.testimonial button {
+    background: none;
+    border: none;
+    color: var(--color-cosmic-gold);
+    font-size: 0.95em;
+    cursor: pointer;
+    padding: 5px 0;
+    margin-top: 10px;
+    text-decoration: underline;
+    transition: all var(--transition-speed);
+    font-family: var(--font-body);
+}
+.testimonial button:hover {
+    color: var(--color-ethereal-light);
+    transform: translateX(8px); /* More pronounced slide on hover */
+    text-shadow: 0 0 5px rgba(224, 255, 255, 0.5); /* Subtle glow on hover */
+}
+
+/* Popup Styles */
+.popup {
+    display: none; /* Default to hidden */
+    position: fixed;
+    z-index: 10000; /* Highest z-index */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh; /* Ensure popup takes full viewport height */
+    background: rgba(0, 0, 0, 0.9); /* Darker, more opaque background */
+    backdrop-filter: blur(8px); /* Subtle blur for modern feel */
+    color: var(--text-primary);
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+    -webkit-overflow-scrolling: touch;
+    overflow-y: auto; /* Allow the *entire popup overlay* to scroll if the content makes it too large (less common, but a good fallback) */
+}
+
+.popup .content {
+    max-width: 750px; /* Wider content for readability */
+    background: var(--color-midnight-blue);
+    padding: 45px; /* More padding */
+    border: 2px solid var(--color-cosmic-gold);
+    border-radius: var(--border-radius-soft);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.8); /* Deeper shadow */
+    text-align: center; /* Center content in popup */
+    position: relative;
+    /* --- IMPORTANT CHANGES FOR SCROLLING --- */
+    max-height: 90vh; /* Set a max height relative to the viewport height */
+    overflow-y: auto; /* Enable vertical scrolling if content exceeds max-height */
+    -webkit-overflow-scrolling: touch; /* Enhance smooth scrolling on iOS */
+    margin: 30px 15px; /* Adjust margin for mobile to ensure it doesn't get cut off by browser UI */
+    width: calc(100% - 60px); /* Adjust width to account for margins */
+    box-sizing: border-box; /* Include padding in width/height calculations */
+}
+
+.popup .content p {
+    font-size: 1.2em;
+    line-height: 1.8;
+    margin-bottom: 25px;
+    color: var(--text-primary);
+}
+.popup button.close-btn {
+    background: var(--color-cosmic-gold);
+    color: var(--color-deep-space);
+    padding: 14px 30px;
+    border-radius: 50px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.1em;
+    text-transform: uppercase;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+}
+.popup button.close-btn:hover {
+    background: var(--color-ethereal-light);
+    color: var(--color-deep-space);
+    transform: translateY(-2px);
+}
+
+/* Contact Section */
+#contact {
+    background-color: var(--color-deep-space);
+}
+.contact-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    max-width: 650px; /* Constrain width for better readability */
+    margin: 0 auto;
+}
+.contact-intro p {
+    font-size: 1.15em;
+    margin-bottom: 30px;
+    color: var(--text-primary);
+    text-align: center;
+}
+.contact-details {
+    margin-top: 20px; /* Reduced margin as it's not following a form */
+    text-align: center;
+    width: 100%;
+}
+.contact-details h3 {
+     color: var(--text-secondary);
+     margin-bottom: 25px;
+     font-size: 2em;
+}
+.contact-details p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    font-size: 1.1em;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+}
+.contact-details p i {
+    color: var(--color-cosmic-gold);
+    font-size: 1.3em;
+    text-shadow: 0 0 5px rgba(255,215,0,0.3);
+}
+.contact-details a {
+    color: var(--text-primary);
+}
+.contact-details a:hover {
+    color: var(--color-cosmic-gold);
+}
+
+/* Social links removed */
+
+/* Footer */
+footer {
+    text-align: center;
+    font-size: 0.9em;
+    border-top: 1px solid var(--color-celestial-blue); /* Subtle blue line */
+    padding-top: 40px;
+    color: var(--text-muted);
+    background-color: var(--color-deep-space);
+    /* Aesthetic touch: Subtle glow for the footer border */
+    box-shadow: inset 0 1px 8px rgba(79, 109, 151, 0.4);
+}
+.footer-links {
+    margin-top: 15px;
+}
+.footer-links a {
+    color: var(--text-muted);
+    margin: 0 12px;
+    font-size: 0.95em;
+}
+.footer-links a:hover {
+    color: var(--color-ethereal-light);
+}
+
+/* Floating Navigation */
+.floating-nav {
+    position: fixed;
+    bottom: 40px; /* More space from bottom */
+    right: 40px; /* More space from right */
+    z-index: 9999; /* Higher z-index */
+    display: flex;
+    flex-direction: column;
+    gap: 18px; /* More space between items */
+}
+.floating-nav a {
+    display: inline-block;
+    background: linear-gradient(to bottom, var(--color-celestial-blue), var(--color-amethyst)); /* Blue-purple gradient */
+    color: var(--text-primary);
+    text-decoration: none;
+    padding: 15px 25px;
+    border-radius: 50px;
+    font-size: 1em;
+    font-weight: bold;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    transition: all var(--transition-speed);
+    text-align: center;
+    min-width: 140px; /* Wider buttons */
+    border: 2px solid var(--color-ethereal-light); /* Light border */
+    /* Aesthetic touch: Subtle inner shadow for depth */
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.3);
+}
+.floating-nav a:hover {
+    background: linear-gradient(to top, var(--color-celestial-blue), var(--color-amethyst)); /* Reverse gradient on hover */
+    color: var(--color-cosmic-gold); /* Gold text on hover */
+    box-shadow: 0 8px 25px rgba(0,0,0,0.8), inset 0 2px 10px rgba(0,0,0,0.5); /* Deeper outer shadow, subtle inner shadow */
+    transform: translateY(-7px) scale(1.05); /* More pronounced lift and scale */
+    border-color: var(--color-cosmic-gold); /* Gold border on hover */
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    h1 { font-size: 4em; }
+    h2 { font-size: 2.5em; }
+    h3 { font-size: 1.8em; }
+    .hero {
+        height: auto;
+        padding: 100px 20px;
+    }
+    .hero img {
+        width: 300px;
+    }
+    .hero h1 { font-size: 3.5em; }
+    .hero p { font-size: 1.5em; }
+
+    section {
+        padding: 80px 20px;
+    }
+    .services {
+        gap: 30px;
+    }
+    .services div {
+        padding: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    h1 { font-size: 3em; }
+    h2 { font-size: 2.2em; }
+    h3 { font-size: 1.6em; }
+    .hero h1 { font-size: 2.8em; }
+    .hero p { font-size: 1.3em; }
+    .btn {
+        padding: 14px 30px;
+        font-size: 1em;
+    }
+    section {
+        padding: 60px 20px;
+    }
+    .services {
+        grid-template-columns: 1fr; /* Stack on small tablets */
+    }
+    .floating-nav {
+        flex-direction: row; /* Horizontal nav on smaller screens */
+        flex-wrap: wrap;
+        justify-content: center;
+        bottom: 20px;
+        right: 20px;
+        left: 20px;
+        gap: 10px;
+    }
+    .floating-nav a {
+        min-width: unset;
+        padding: 12px 20px;
+        font-size: 0.9em;
+    }
+    .testimonial button {
+        font-size: 0.85em;
+    }
+    /* Popup content adjustments for smaller screens */
+    .popup .content {
+        margin: 20px 15px; /* Slightly more space from top/bottom on smaller screens */
+        max-height: calc(100vh - 40px); /* Adjust max-height to account for margin */
+        width: calc(100% - 30px); /* Adjust width to account for margins */
+    }
+    .contact-details p {
+        flex-direction: column;
+        gap: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 { font-size: 2.5em; }
+    h2 { font-size: 1.8em; }
+    h3 { font-size: 1.4em; }
+    .hero img {
+        width: 200px;
+    }
+    .hero h1 { font-size: 2.2em; }
+    .hero p { font-size: 1.1em; }
+    .btn {
+        width: 90%;
+        max-width: 280px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .floating-nav a {
+        padding: 10px 15px;
+        font-size: 0.8em;
+    }
+    .services div {
+        padding: 25px;
+    }
+    /* Popup content adjustments for very small screens */
+    .popup .content {
+        padding: 25px; /* Already there, good */
+        margin: 15px; /* Even tighter margins for very small screens */
+        max-height: calc(100vh - 30px); /* Adjust max-height */
+        width: calc(100% - 30px); /* Adjust width */
+    }
+    .popup button.close-btn {
+        padding: 10px 20px;
+        font-size: 1em;
+    }
+}
