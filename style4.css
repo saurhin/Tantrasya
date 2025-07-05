@@ -92,7 +92,7 @@ h2::after { /* Underline effect for H2 - Enhanced with more glow */
     to { box-shadow: 0 0 25px var(--color-cosmic-gold); transform: scaleX(1.05); }
 }
 
-h3 { font-size: 2.5em; } /* Larger service titles */
+h3 { font-size: 2.5em; } /* Larger general h3, will be overridden for services below in media queries */
 
 p {
     margin-bottom: 1.3rem;
@@ -311,10 +311,11 @@ section:nth-of-type(even) {
     border-color: var(--color-cosmic-gold); /* Gold border on hover */
 }
 .services h3 {
-    font-size: 2.2em; /* Slightly larger service title for card */
+    font-size: 2.2em; /* Keep base large, will scale down in media queries */
     margin-bottom: 1rem;
     color: var(--color-cosmic-gold);
     text-shadow: 0 0 8px rgba(255, 215, 0, 0.5); /* Enhanced glow for service titles */
+    /* No 'white-space: nowrap; overflow: hidden; text-overflow: ellipsis;' here, will allow wrapping by default */
 }
 .services p {
     color: var(--text-muted);
@@ -567,7 +568,7 @@ footer {
 @media (max-width: 992px) {
     h1 { font-size: 4.5em; }
     h2 { font-size: 3em; }
-    h3 { font-size: 2em; }
+    h3 { font-size: 2em; } /* General h3 scaling */
 
     .hero {
         height: auto;
@@ -588,12 +589,18 @@ footer {
     .services div {
         padding: 35px;
     }
+    /* Specific scaling for service h3 to make it fit */
+    .services div h3 {
+        font-size: 1.8em; /* Adjusted for larger tablets */
+        white-space: normal; /* Allow text to wrap to the next line */
+        word-break: break-word; /* Ensure long words break rather than overflowing */
+    }
 }
 
 @media (max-width: 768px) {
     h1 { font-size: 3.5em; }
     h2 { font-size: 2.5em; }
-    h3 { font-size: 1.8em; }
+    h3 { font-size: 1.8em; } /* General h3 scaling */
 
     .hero h1 { font-size: 3.2em; }
     .hero p { font-size: 1.5em; }
@@ -633,12 +640,18 @@ footer {
         flex-direction: column;
         gap: 8px;
     }
+    /* Specific scaling for service h3 */
+    .services div h3 {
+        font-size: 1.6em; /* Adjusted for phones */
+        white-space: normal;
+        word-break: break-word;
+    }
 }
 
 @media (max-width: 480px) {
     h1 { font-size: 3em; }
     h2 { font-size: 2em; }
-    h3 { font-size: 1.6em; }
+    h3 { font-size: 1.6em; } /* General h3 scaling */
 
     .hero img {
         width: 250px;
@@ -658,14 +671,10 @@ footer {
     .services div {
         padding: 30px;
     }
-    .popup .content {
-        padding: 30px;
-        margin: 15px;
-        max-height: calc(100vh - 30px);
-        width: calc(100% - 30px);
-    }
-    .popup button.close-btn {
-        padding: 12px 25px;
-        font-size: 1.05em;
+    /* Specific scaling for service h3 */
+    .services div h3 {
+        font-size: 1.4em; /* Further adjustment for very small phones */
+        white-space: normal;
+        word-break: break-word;
     }
 }
