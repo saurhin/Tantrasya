@@ -1,0 +1,666 @@
+/* CSS Variables for a more vibrant, ethereal theme */
+:root {
+    --color-deep-space: #0A0F1F; /* Very dark blue, almost black */
+    --color-midnight-blue: #1A1E33; /* Dark background for sections */
+    --color-celestial-blue: #4F6D97; /* Muted mid-blue for accents */
+    --color-cosmic-gold: #FFD700; /* Bright, clear gold */
+    --color-ethereal-light: #E0FFFF; /* Aqua-white, almost glowing */
+    --color-amethyst: #8A2BE2; /* A spiritual purple */
+    --color-emerald: #50C878; /* A calming green */
+    --color-dark-sapphire: #1B2B4A; /* NEW: A deeper, darker blue for texture */
+
+    --text-primary: var(--color-ethereal-light);
+    --text-secondary: var(--color-cosmic-gold);
+    --text-muted: rgba(224, 255, 255, 0.75); /* Slightly less transparent for better readability */
+
+    --font-heading: 'Cinzel Decorative', serif;
+    --font-body: 'Lora', serif;
+    --font-display: 'Cinzel Decorative', serif; /* For hero main title */
+
+    --shadow-light-glow: 0 0 18px rgba(255, 215, 0, 0.5); /* Stronger light glow */
+    --shadow-deep: 0 10px 30px rgba(0, 0, 0, 0.6); /* Deeper main shadow */
+    --border-radius-soft: 15px; /* Slightly more rounded corners */
+    --transition-speed: 0.5s ease-in-out; /* Slower for smoother, more deliberate animations */
+}
+
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--color-deep-space);
+    color: var(--text-primary);
+    line-height: 1.7; /* Improved line height for readability */
+    overflow-x: hidden; /* Prevent horizontal scroll */
+}
+
+/* Custom Scrollbar for Webkit browsers */
+::-webkit-scrollbar {
+    width: 12px;
+}
+::-webkit-scrollbar-track {
+    background: var(--color-deep-space);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, var(--color-celestial-blue), var(--color-amethyst));
+    border-radius: 10px;
+    border: 3px solid var(--color-deep-space); /* Space between thumb and track */
+}
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, var(--color-amethyst), var(--color-cosmic-gold));
+}
+
+
+.container {
+    max-width: 1200px; /* Even wider container for more breathing room */
+    margin: 0 auto;
+    padding: 0 35px; /* More horizontal padding */
+}
+
+/* Headings */
+h1, h2, h3, h4 {
+    font-family: var(--font-heading);
+    color: var(--text-secondary); /* Gold for headings */
+    margin-bottom: 1rem;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.6); /* Deeper shadow for depth */
+}
+
+h1 { font-size: 5.5em; text-align: center; line-height: 1.1; font-family: var(--font-display); } /* Hero H1 uses Playfair */
+h2 { font-size: 3.5em; text-align: center; margin-bottom: 4rem; position: relative; } /* Larger, centered H2 */
+h2::after { /* Underline effect for H2 - Enhanced with more glow */
+    content: '';
+    display: block;
+    width: 100px; /* Slightly longer underline */
+    height: 4px; /* Thicker underline */
+    background: linear-gradient(to right, transparent, var(--color-cosmic-gold), transparent); /* Gradient underline */
+    margin: 18px auto 0;
+    border-radius: 2px;
+    box-shadow: 0 0 15px var(--color-cosmic-gold); /* Stronger glow to the underline */
+    animation: pulseGlow 2s ease-in-out infinite alternate; /* Subtle pulse animation */
+}
+@keyframes pulseGlow {
+    from { box-shadow: 0 0 10px var(--color-cosmic-gold); transform: scaleX(1); }
+    to { box-shadow: 0 0 25px var(--color-cosmic-gold); transform: scaleX(1.05); }
+}
+
+h3 { font-size: 2.5em; } /* Larger service titles */
+
+p {
+    margin-bottom: 1.3rem;
+    color: var(--text-muted);
+    text-shadow: 0.5px 0.5px 1.5px rgba(0,0,0,0.4); /* Slightly deeper text shadow */
+}
+
+a {
+    color: var(--color-cosmic-gold);
+    text-decoration: none;
+    transition: color var(--transition-speed);
+}
+a:hover {
+    color: var(--color-ethereal-light);
+    text-shadow: 0 0 8px var(--color-ethereal-light); /* Subtle glow on hover */
+}
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 18px 40px; /* Even larger, more inviting buttons */
+    background: linear-gradient(to right, var(--color-cosmic-gold) 0%, var(--color-ethereal-light) 100%);
+    color: var(--color-deep-space);
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1.15em; /* Slightly larger font */
+    font-weight: 700;
+    letter-spacing: 0.8px; /* More letter spacing */
+    text-transform: uppercase;
+    box-shadow: 0 8px 20px var(--shadow-light-glow); /* Deeper initial shadow */
+    transition: all var(--transition-speed);
+    font-family: var(--font-heading);
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3); /* Clearer text shadow */
+    position: relative;
+    overflow: hidden; /* For the light sweep effect */
+}
+/* Light sweep effect on button hover */
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+    transition: transform var(--transition-speed) ease-out;
+    transform: skewX(-20deg); /* Angle the sweep */
+}
+.btn:hover::before {
+    transform: translateX(200%) skewX(-20deg); /* Sweep across the button */
+}
+
+.btn:hover {
+    background: linear-gradient(to right, var(--color-ethereal-light), var(--color-cosmic-gold));
+    box-shadow: 0 12px 35px rgba(255, 215, 0, 0.9); /* More intense glow on hover */
+    transform: translateY(-7px) scale(1.05); /* More pronounced lift and scale */
+}
+
+/* Sections */
+section {
+    padding: 120px 0; /* Even more generous section padding */
+    position: relative;
+    z-index: 1;
+}
+section:nth-of-type(odd) {
+    background-color: var(--color-deep-space);
+}
+section:nth-of-type(even) {
+    background-color: var(--color-midnight-blue);
+    box-shadow: inset 0 8px 25px rgba(0,0,0,0.5), inset 0 -8px 25px rgba(0,0,0,0.5); /* Deeper inner shadow */
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    background-image: url('https://via.placeholder.com/1920x1080/0A0F1F/4F6D97?text=Cosmic+Nebula+Background'); /* Ethereal, cosmic placeholder */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+/* Multi-layered cosmic effects for hero background */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Layered radial gradients for depth and movement */
+    background:
+        radial-gradient(circle at 15% 15%, rgba(79, 109, 151, 0.5) 0%, transparent 60%),
+        radial-gradient(circle at 85% 85%, rgba(255, 215, 0, 0.4) 0%, transparent 70%),
+        radial-gradient(circle at 50% 50%, rgba(138, 43, 226, 0.25) 0%, transparent 80%),
+        radial-gradient(circle at 30% 70%, rgba(27, 43, 74, 0.6) 0%, transparent 60%); /* New dark sapphire gradient */
+    animation: cosmicFlow 15s ease-in-out infinite alternate, subtlePulse 8s ease-in-out infinite alternate;
+    z-index: 0;
+}
+
+@keyframes cosmicFlow {
+    0% { background-position: 0% 0%, 100% 100%, 50% 50%, 0% 100%; }
+    100% { background-position: 100% 100%, 0% 0%, 100% 50%, 100% 0%; }
+}
+
+@keyframes subtlePulse {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(1.01); opacity: 0.98; }
+}
+
+
+.hero img {
+    width: 420px; /* Even larger, more prominent logo */
+    max-width: 90vw;
+    margin-bottom: 50px;
+    filter: drop-shadow(0 0 35px var(--color-cosmic-gold)); /* More intense glow */
+    animation: glow 3s ease-in-out infinite alternate;
+    z-index: 1; /* Ensure logo is above pseudo-element */
+}
+@keyframes glow {
+    from { filter: drop-shadow(0 0 20px var(--color-cosmic-gold)); }
+    to  { filter: drop-shadow(0 0 45px var(--color-cosmic-gold)); }
+}
+
+.hero h1 {
+    color: var(--color-cosmic-gold);
+    font-size: 6.5em; /* Dramatic size for main title */
+    letter-spacing: 3px; /* More spacing */
+    text-shadow: 0 0 20px rgba(255, 215, 0, 1), 0 0 35px rgba(255, 215, 0, 0.8), 0 0 50px rgba(255, 215, 0, 0.5); /* Multi-layered glow */
+}
+
+.hero p {
+    font-size: 2em; /* Larger, inviting hero text */
+    max-width: 800px; /* Wider text */
+    margin: 1.8em auto 3.5em; /* More spacing */
+    color: var(--color-ethereal-light);
+    text-shadow: 1px 1px 10px rgba(0,0,0,1); /* Stronger text shadow for hero paragraph */
+}
+
+/* About Section */
+#about p {
+    max-width: 950px; /* Wider text block */
+    margin: 0 auto 1.5rem;
+    text-align: center;
+    font-size: 1.25em; /* Slightly larger font */
+    color: var(--text-primary);
+}
+
+/* Services Section */
+.services {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Slightly wider min column */
+    gap: 60px; /* More space between service cards */
+    margin-top: 4.5rem;
+}
+.services div {
+    background: var(--color-midnight-blue);
+    padding: 40px; /* More padding */
+    border-radius: var(--border-radius-soft);
+    box-shadow: var(--shadow-deep);
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed), border-color var(--transition-speed);
+    text-align: center;
+    border: 2px solid rgba(255, 215, 0, 0.2); /* Thicker, slightly more visible gold border */
+    position: relative;
+    overflow: hidden;
+    z-index: 1; /* Ensure content is above pseudo-elements */
+}
+/* Inner glow effect on service cards - More dynamic and pronounced */
+.services div::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle at center, rgba(255, 215, 0, 0.25) 0%, transparent 100%); /* Stronger initial glow */
+    opacity: 0;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all var(--transition-speed) ease-out;
+    pointer-events: none;
+    z-index: -1; /* Behind content */
+}
+.services div:hover::before {
+    width: 400%; /* Expands even more */
+    height: 400%;
+    opacity: 0.8; /* More visible on hover */
+}
+/* Border glow effect on service cards */
+.services div::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--border-radius-soft);
+    box-shadow: 0 0 0 0 rgba(255,215,0,0);
+    transition: box-shadow var(--transition-speed) ease-out;
+    pointer-events: none;
+    z-index: -1; /* Behind content */
+}
+.services div:hover::after {
+    box-shadow: 0 0 25px var(--color-cosmic-gold), 0 0 50px var(--color-amethyst); /* Dual-color glow */
+}
+
+.services div:hover {
+    transform: translateY(-20px); /* More pronounced lift */
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95); /* Even deeper shadow on hover */
+    border-color: var(--color-cosmic-gold); /* Gold border on hover */
+}
+.services h3 {
+    font-size: 2.2em; /* Slightly larger service title for card */
+    margin-bottom: 1rem;
+    color: var(--color-cosmic-gold);
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.5); /* Enhanced glow for service titles */
+}
+.services p {
+    color: var(--text-muted);
+    font-size: 1.1em; /* Slightly larger service text */
+}
+.service-icon-img {
+    width: 90px; /* Larger icons */
+    height: 90px;
+    object-fit: contain;
+    margin-bottom: 25px;
+    filter: drop-shadow(0 0 15px rgba(224, 255, 255, 0.6)); /* Stronger initial glow */
+    transition: filter var(--transition-speed);
+    z-index: 1;
+    position: relative;
+}
+.services div:hover .service-icon-img {
+    filter: drop-shadow(0 0 30px var(--color-cosmic-gold)); /* Even stronger gold glow on hover */
+}
+
+/* Testimonials Section */
+.testimonial-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); /* Slightly wider min column */
+    gap: 50px; /* More space */
+    margin-top: 5rem;
+}
+.testimonial {
+    background: var(--color-midnight-blue);
+    padding: 35px; /* More padding */
+    border-left: 8px solid var(--color-amethyst); /* Thicker amethyst border */
+    border-radius: var(--border-radius-soft);
+    box-shadow: var(--shadow-deep);
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed), border-left-color var(--transition-speed), background-color var(--transition-speed); /* Transition background */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.testimonial:hover {
+    transform: translateY(-12px); /* More pronounced lift */
+    box-shadow: 0 15px 40px rgba(0,0,0,0.8); /* Deeper shadow on hover */
+    border-left-color: var(--color-cosmic-gold); /* Gold border on hover */
+    background-color: var(--color-dark-sapphire); /* Subtle background shift on hover */
+}
+.testimonial .short {
+    font-style: italic;
+    font-size: 1.15em; /* Slightly larger text */
+    margin-bottom: 20px;
+    color: var(--text-primary);
+    text-shadow: 0.5px 0.5px 1.5px rgba(0,0,0,0.4);
+}
+.testimonial span {
+    display: block;
+    margin-top: 20px;
+    text-align: right;
+    font-weight: bold;
+    color: var(--color-celestial-blue);
+    font-size: 1.05em;
+    font-family: var(--font-body);
+}
+.testimonial button {
+    background: none;
+    border: none;
+    color: var(--color-cosmic-gold);
+    font-size: 1em; /* Slightly larger button text */
+    cursor: pointer;
+    padding: 8px 0; /* More padding */
+    margin-top: 15px;
+    text-decoration: underline;
+    transition: all var(--transition-speed);
+    font-family: var(--font-body);
+}
+.testimonial button:hover {
+    color: var(--color-ethereal-light);
+    transform: translateX(10px); /* More pronounced slide on hover */
+    text-shadow: 0 0 10px rgba(224, 255, 255, 0.7); /* More prominent glow on hover */
+}
+
+/* Popup Styles */
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 10000;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95); /* Slightly more opaque background */
+    backdrop-filter: blur(10px); /* Stronger blur */
+    color: var(--text-primary);
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+    -webkit-overflow-scrolling: touch;
+    overflow-y: auto;
+}
+
+.popup .content {
+    max-width: 800px; /* Wider content for readability */
+    background: var(--color-midnight-blue);
+    padding: 50px; /* More padding */
+    border: 3px solid var(--color-cosmic-gold); /* Thicker border */
+    border-radius: var(--border-radius-soft);
+    box-shadow: 0 15px 50px rgba(0,0,0,0.9); /* Deeper shadow */
+    text-align: center;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 30px 20px; /* More margin for very small screens */
+    width: calc(100% - 40px); /* Adjust width to account for margins */
+    box-sizing: border-box;
+}
+
+.popup .content p {
+    font-size: 1.3em; /* Larger popup text */
+    line-height: 1.9; /* More line height */
+    margin-bottom: 30px;
+    color: var(--text-primary);
+}
+.popup button.close-btn {
+    background: var(--color-cosmic-gold);
+    color: var(--color-deep-space);
+    padding: 16px 35px; /* Larger close button */
+    border-radius: 50px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.15em;
+    text-transform: uppercase;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+}
+.popup button.close-btn:hover {
+    background: var(--color-ethereal-light);
+    color: var(--color-deep-space);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+}
+
+/* Contact Section */
+#contact {
+    background-color: var(--color-deep-space);
+}
+.contact-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 45px; /* More space */
+    max-width: 700px; /* Wider contact block */
+    margin: 0 auto;
+}
+.contact-intro p {
+    font-size: 1.2em; /* Larger text */
+    margin-bottom: 35px;
+    color: var(--text-primary);
+    text-align: center;
+}
+.contact-details {
+    margin-top: 25px;
+    text-align: center;
+    width: 100%;
+}
+.contact-details h3 {
+     color: var(--text-secondary);
+     margin-bottom: 30px;
+     font-size: 2.2em; /* Larger heading */
+}
+.contact-details p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px; /* More space between icon and text */
+    font-size: 1.15em; /* Slightly larger text */
+    margin-bottom: 15px;
+    color: var(--text-primary);
+}
+.contact-details p i {
+    color: var(--color-cosmic-gold);
+    font-size: 1.4em; /* Larger icons */
+    text-shadow: 0 0 8px rgba(255,215,0,0.5); /* Stronger glow */
+}
+.contact-details a {
+    color: var(--text-primary);
+}
+.contact-details a:hover {
+    color: var(--color-cosmic-gold);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    font-size: 0.95em; /* Slightly larger font */
+    border-top: 2px solid var(--color-celestial-blue); /* Thicker line */
+    padding-top: 50px; /* More padding */
+    color: var(--text-muted);
+    background-color: var(--color-deep-space);
+    box-shadow: inset 0 2px 10px rgba(79, 109, 151, 0.5); /* Stronger glow for the footer border */
+}
+.footer-links {
+    margin-top: 20px;
+}
+.footer-links a {
+    color: var(--text-muted);
+    margin: 0 15px; /* More spacing */
+    font-size: 1em; /* Larger link text */
+}
+.footer-links a:hover {
+    color: var(--color-ethereal-light);
+}
+
+/* Floating Navigation */
+.floating-nav {
+    position: fixed;
+    bottom: 50px; /* More space from bottom */
+    right: 50px; /* More space from right */
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* More space between items */
+}
+.floating-nav a {
+    display: inline-block;
+    background: linear-gradient(to bottom right, var(--color-celestial-blue), var(--color-amethyst)); /* Angled gradient */
+    color: var(--text-primary);
+    text-decoration: none;
+    padding: 18px 30px; /* Larger padding */
+    border-radius: 50px;
+    font-size: 1.05em; /* Slightly larger font */
+    font-weight: bold;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.6); /* Deeper initial shadow */
+    transition: all var(--transition-speed) ease-out;
+    text-align: center;
+    min-width: 160px; /* Wider buttons */
+    border: 3px solid var(--color-ethereal-light); /* Thicker light border */
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.4); /* Text shadow for clarity */
+    backdrop-filter: blur(5px); /* Subtle frosted glass effect */
+    -webkit-backdrop-filter: blur(5px); /* For Safari */
+}
+.floating-nav a:hover {
+    background: linear-gradient(to top left, var(--color-amethyst), var(--color-cosmic-gold)); /* More dynamic gradient shift */
+    color: var(--color-deep-space); /* Darker text on hover for contrast */
+    box-shadow: 0 12px 35px rgba(0,0,0,0.9), 0 0 25px var(--color-cosmic-gold); /* Deeper shadow + gold glow */
+    transform: translateY(-8px) scale(1.06) rotateX(5deg); /* More pronounced lift, scale, and subtle 3D tilt */
+    border-color: var(--color-cosmic-gold); /* Gold border on hover */
+    text-shadow: none; /* Remove text shadow for cleaner look on lighter hover background */
+}
+
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    h1 { font-size: 4.5em; }
+    h2 { font-size: 3em; }
+    h3 { font-size: 2em; }
+    .hero {
+        height: auto;
+        padding: 120px 20px;
+    }
+    .hero img {
+        width: 350px;
+    }
+    .hero h1 { font-size: 4em; }
+    .hero p { font-size: 1.8em; }
+
+    section {
+        padding: 90px 20px;
+    }
+    .services {
+        gap: 40px;
+    }
+    .services div {
+        padding: 35px;
+    }
+}
+
+@media (max-width: 768px) {
+    h1 { font-size: 3.5em; }
+    h2 { font-size: 2.5em; }
+    h3 { font-size: 1.8em; }
+    .hero h1 { font-size: 3.2em; }
+    .hero p { font-size: 1.5em; }
+    .btn {
+        padding: 16px 35px;
+        font-size: 1.05em;
+    }
+    section {
+        padding: 70px 20px;
+    }
+    .services {
+        grid-template-columns: 1fr;
+    }
+    .floating-nav {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        bottom: 25px;
+        right: 25px;
+        left: 25px;
+        gap: 15px;
+    }
+    .floating-nav a {
+        min-width: unset;
+        padding: 14px 25px;
+        font-size: 0.95em;
+    }
+    .testimonial button {
+        font-size: 0.9em;
+    }
+    .popup .content {
+        margin: 25px 20px;
+        max-height: calc(100vh - 50px);
+        width: calc(100% - 40px);
+    }
+    .contact-details p {
+        flex-direction: column;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 { font-size: 3em; }
+    h2 { font-size: 2em; }
+    h3 { font-size: 1.6em; }
+    .hero img {
+        width: 250px;
+    }
+    .hero h1 { font-size: 2.6em; }
+    .hero p { font-size: 1.3em; }
+    .btn {
+        width: 95%;
+        max-width: 300px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .floating-nav a {
+        padding: 12px 20px;
+        font-size: 0.85em;
+    }
+    .services div {
+        padding: 30px;
+    }
+    .popup .content {
+        padding: 30px;
+        margin: 15px;
+        max-height: calc(100vh - 30px);
+        width: calc(100% - 30px);
+    }
+    .popup button.close-btn {
+        padding: 12px 25px;
+        font-size: 1.05em;
+    }
+}
