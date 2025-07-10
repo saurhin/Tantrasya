@@ -7,19 +7,20 @@
     --color-ethereal-light: #E0FFFF; /* Aqua-white, almost glowing */
     --color-amethyst: #8A2BE2; /* A spiritual purple */
     --color-emerald: #50C878; /* A calming green */
+    --color-dark-sapphire: #1B2B4A; /* NEW: A deeper, darker blue for texture - RETAINED */
 
     --text-primary: var(--color-ethereal-light);
     --text-secondary: var(--color-cosmic-gold);
-    --text-muted: rgba(224, 255, 255, 0.7); /* Slightly transparent for less important text */
+    --text-muted: rgba(224, 255, 255, 0.7); /* Reverted to first design's value */
 
     --font-heading: 'Cinzel Decorative', serif;
     --font-body: 'Lora', serif;
     --font-display: 'Cinzel Decorative', serif; /* For hero main title */
 
-    --shadow-light-glow: 0 0 15px rgba(255, 215, 0, 0.4);
-    --shadow-deep: 0 8px 25px rgba(0, 0, 0, 0.5);
-    --border-radius-soft: 12px;
-    --transition-speed: 0.3s ease-in-out;
+    --shadow-light-glow: 0 0 15px rgba(255, 215, 0, 0.4); /* Reverted to first design's value */
+    --shadow-deep: 0 8px 25px rgba(0, 0, 0, 0.5); /* Reverted to first design's value */
+    --border-radius-soft: 12px; /* Reverted to first design's value */
+    --transition-speed: 0.3s ease-in-out; /* Reverted to first design's value */
 }
 
 /* Base Styles */
@@ -41,10 +42,28 @@ body {
     overflow-x: hidden; /* Prevent horizontal scroll */
 }
 
+/* Custom Scrollbar for Webkit browsers - RETAINED from second design */
+::-webkit-scrollbar {
+    width: 12px;
+}
+::-webkit-scrollbar-track {
+    background: var(--color-deep-space);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, var(--color-celestial-blue), var(--color-amethyst));
+    border-radius: 10px;
+    border: 3px solid var(--color-deep-space); /* Space between thumb and track */
+}
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, var(--color-amethyst), var(--color-cosmic-gold));
+}
+
+
 .container {
-    max-width: 1100px; /* Slightly wider container */
+    max-width: 1200px; /* RETAINED from second design */
     margin: 0 auto;
-    padding: 0 25px; /* More horizontal padding */
+    padding: 0 35px; /* RETAINED from second design */
 }
 
 /* Headings */
@@ -52,78 +71,105 @@ h1, h2, h3, h4 {
     font-family: var(--font-heading);
     color: var(--text-secondary); /* Gold for headings */
     margin-bottom: 1rem;
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* Subtle shadow for depth */
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.6); /* RETAINED from second design */
 }
 
-h1 { font-size: 4.5em; text-align: center; line-height: 1.1; font-family: var(--font-display); } /* Hero H1 uses Playfair */
-h2 { font-size: 3em; text-align: center; margin-bottom: 3.5rem; position: relative; } /* Larger, centered H2 */
-h2::after { /* Underline effect for H2 */
+/* H1 specific for Hero section - Reverted to first design's value */
+h1 { font-size: 4.5em; text-align: center; line-height: 1.1; font-family: var(--font-display); }
+/* H2 specific - RETAINED from second design */
+h2 { font-size: 3.5em; text-align: center; margin-bottom: 4rem; position: relative; }
+h2::after { /* Underline effect for H2 - RETAINED from second design */
     content: '';
     display: block;
-    width: 80px;
-    height: 3px;
-    background: var(--color-cosmic-gold);
-    margin: 15px auto 0;
+    width: 100px; /* Slightly longer underline */
+    height: 4px; /* Thicker underline */
+    background: linear-gradient(to right, transparent, var(--color-cosmic-gold), transparent); /* Gradient underline */
+    margin: 18px auto 0;
     border-radius: 2px;
+    box-shadow: 0 0 15px var(--color-cosmic-gold); /* Stronger glow to the underline */
+    animation: pulseGlow 2s ease-in-out infinite alternate; /* Subtle pulse animation */
 }
-h3 { font-size: 2.2em; }
+@keyframes pulseGlow { /* RETAINED from second design */
+    from { box-shadow: 0 0 10px var(--color-cosmic-gold); transform: scaleX(1); }
+    to { box-shadow: 0 0 25px var(--color-cosmic-gold); transform: scaleX(1.05); }
+}
+
+h3 { font-size: 2.5em; } /* RETAINED from second design */
 
 p {
-    margin-bottom: 1.2rem;
+    margin-bottom: 1.3rem; /* RETAINED from second design */
     color: var(--text-muted);
+    text-shadow: 0.5px 0.5px 1.5px rgba(0,0,0,0.4); /* RETAINED from second design */
 }
 
 a {
     color: var(--color-cosmic-gold);
     text-decoration: none;
-    transition: color var(--transition-speed);
+    transition: color var(--transition-speed); /* Uses reverted --transition-speed */
 }
 a:hover {
     color: var(--color-ethereal-light);
+    text-shadow: 0 0 8px var(--color-ethereal-light); /* RETAINED from second design */
 }
 
-/* Buttons */
+/* Buttons - RETAINED from second design */
 .btn {
     display: inline-block;
-    padding: 16px 35px; /* Larger, more inviting buttons */
-    background: linear-gradient(to right, var(--color-cosmic-gold), var(--color-ethereal-light)); /* Gold to light gradient */
-    color: var(--color-deep-space); /* Dark text on light button */
+    padding: 18px 40px;
+    background: linear-gradient(to right, var(--color-cosmic-gold) 0%, var(--color-ethereal-light) 100%);
+    color: var(--color-deep-space);
     border: none;
-    border-radius: 50px; /* Fully rounded, pill-shaped */
+    border-radius: 50px;
     cursor: pointer;
-    font-size: 1.1em;
+    font-size: 1.15em;
     font-weight: 700;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.8px;
     text-transform: uppercase;
-    box-shadow: 0 5px 15px var(--shadow-light-glow);
+    box-shadow: 0 8px 20px var(--shadow-light-glow);
     transition: all var(--transition-speed);
     font-family: var(--font-heading);
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3);
+    position: relative;
+    overflow: hidden;
+}
+.btn::before { /* Light sweep effect on button hover */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+    transition: transform var(--transition-speed) ease-out;
+    transform: skewX(-20deg);
+}
+.btn:hover::before {
+    transform: translateX(200%) skewX(-20deg);
 }
 .btn:hover {
-    background: linear-gradient(to right, var(--color-ethereal-light), var(--color-cosmic-gold)); /* Reverse gradient on hover */
-    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.6);
-    transform: translateY(-3px) scale(1.02);
+    background: linear-gradient(to right, var(--color-ethereal-light), var(--color-cosmic-gold));
+    box-shadow: 0 12px 35px rgba(255, 215, 0, 0.9);
+    transform: translateY(-7px) scale(1.05);
 }
 
-/* Sections */
+/* Sections - RETAINED from second design */
 section {
-    padding: 100px 0; /* More generous section padding */
+    padding: 120px 0;
     position: relative;
     z-index: 1;
 }
-/* Alternating backgrounds for visual interest */
 section:nth-of-type(odd) {
     background-color: var(--color-deep-space);
 }
 section:nth-of-type(even) {
     background-color: var(--color-midnight-blue);
-    box-shadow: inset 0 5px 15px rgba(0,0,0,0.3), inset 0 -5px 15px rgba(0,0,0,0.3); /* Subtle inner shadow */
+    box-shadow: inset 0 8px 25px rgba(0,0,0,0.5), inset 0 -8px 25px rgba(0,0,0,0.5);
 }
 
-/* Hero Section */
+/* Hero Section - Reverted to first design's values */
 .hero {
     height: 100vh;
-    background-image: url('https://via.placeholder.com/1920x1080/0A0F1F/4F6D97?text=Cosmic+Nebula+Background'); /* Ethereal, cosmic placeholder */
+    background-image: url('https://via.placeholder.com/1920x1080/0A0F1F/4F6D97?text=Cosmic+Nebula+Background');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -133,9 +179,9 @@ section:nth-of-type(even) {
     justify-content: center;
     text-align: center;
     position: relative;
-    overflow: hidden; /* To contain any background animations */
+    overflow: hidden;
 }
-/* Subtle glowing dots animation on hero background */
+/* Subtle glowing dots animation on hero background - Reverted to first design's values */
 .hero::before {
     content: '';
     position: absolute;
@@ -149,215 +195,254 @@ section:nth-of-type(even) {
     z-index: 0;
 }
 
-@keyframes cosmicFadeIn {
+@keyframes cosmicFadeIn { /* Reverted to first design's keyframe */
     from { opacity: 0; }
     to { opacity: 1; }
 }
 
 .hero img {
-    width: 380px; /* Larger, more prominent logo */
+    width: 380px; /* Reverted to first design's value */
     max-width: 90vw;
-    margin-bottom: 40px;
-
-    filter: drop-shadow(0 0 25px var(--color-cosmic-gold)); /* More intense glow */
+    margin-bottom: 40px; /* Reverted to first design's value */
+    filter: drop-shadow(0 0 25px var(--color-cosmic-gold)); /* Reverted to first design's value */
     animation: glow 3s ease-in-out infinite alternate;
-    z-index: 1; /* Ensure logo is above pseudo-element */
+    z-index: 1;
 }
-@keyframes glow {
+@keyframes glow { /* Reverted to first design's keyframe */
     from { filter: drop-shadow(0 0 15px var(--color-cosmic-gold)); }
     to  { filter: drop-shadow(0 0 30px var(--color-cosmic-gold)); }
 }
 
 .hero h1 {
-    color: var(--color-cosmic-gold); /* Prominent gold for main title */
-    font-size: 5.5em; /* Even larger for dramatic effect */
-    letter-spacing: 2px;
+    color: var(--color-cosmic-gold);
+    font-size: 5.5em; /* Reverted to first design's value */
+    letter-spacing: 2px; /* Reverted to first design's value */
+    text-shadow: 0 0 20px rgba(255, 215, 0, 1), 0 0 35px rgba(255, 215, 0, 0.8), 0 0 50px rgba(255, 215, 0, 0.5); /* RETAINED from second design as it's a more advanced glow */
 }
 
 .hero p {
-    font-size: 1.8em; /* Larger, inviting hero text */
-    max-width: 700px;
-    margin: 1.5em auto 3em; /* More spacing */
+    font-size: 1.8em; /* Reverted to first design's value */
+    max-width: 700px; /* Reverted to first design's value */
+    margin: 1.5em auto 3em; /* Reverted to first design's value */
     color: var(--color-ethereal-light);
-    text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.8); /* Reverted to first design's value */
 }
 
-/* About Section */
+/* About Section - RETAINED from second design */
 #about p {
-    max-width: 900px;
+    max-width: 950px;
     margin: 0 auto 1.5rem;
     text-align: center;
-    font-size: 1.15em;
-    color: var(--text-primary); /* Use primary text color for main body text */
+    font-size: 1.25em;
+    color: var(--text-primary);
 }
 
-/* Services Section */
+/* Services Section - RETAINED from second design, with h3 fix */
 .services {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 50px; /* More space between service cards */
-    margin-top: 4rem;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 60px;
+    margin-top: 4.5rem;
 }
 .services div {
-    background: var(--color-midnight-blue); /* Darker card background */
-    padding: 35px;
+    background: var(--color-midnight-blue);
+    padding: 40px;
     border-radius: var(--border-radius-soft);
     box-shadow: var(--shadow-deep);
-    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed), border-color var(--transition-speed);
     text-align: center;
-    border: 1px solid rgba(255, 215, 0, 0.1); /* Subtle gold border */
-    position: relative; /* For icon positioning */
-    overflow: hidden; /* For inner glow */
+    border: 2px solid rgba(255, 215, 0, 0.2);
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
 }
-/* Inner glow effect on service cards */
-.services div::before {
+.services div::before { /* Inner glow effect on service cards */
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: radial-gradient(circle at center, rgba(255, 215, 0, 0.25) 0%, transparent 100%);
+    opacity: 0;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: all var(--transition-speed) ease-out;
+    pointer-events: none;
+    z-index: -1;
+}
+.services div:hover::before {
+    width: 400%;
+    height: 400%;
+    opacity: 0.8;
+}
+.services div::after { /* Border glow effect on service cards */
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at center, rgba(255, 215, 0, 0.05) 0%, transparent 60%);
-    opacity: 0;
-    transition: opacity var(--transition-speed);
+    border-radius: var(--border-radius-soft);
+    box-shadow: 0 0 0 0 rgba(255,215,0,0);
+    transition: box-shadow var(--transition-speed) ease-out;
     pointer-events: none;
+    z-index: -1;
 }
-.services div:hover::before {
-    opacity: 1;
+.services div:hover::after {
+    box-shadow: 0 0 25px var(--color-cosmic-gold), 0 0 50px var(--color-amethyst);
 }
 
 .services div:hover {
-    transform: translateY(-15px); /* More pronounced lift */
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+    transform: translateY(-20px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.95);
+    border-color: var(--color-cosmic-gold);
 }
 .services h3 {
-    font-size: 1.9em; /* Slightly smaller service title for card */
-    margin-bottom: 0.8rem;
+    font-size: 2em; /* Adjusted font size for better wrapping on desktop */
+    margin-bottom: 1rem;
+    color: var(--color-cosmic-gold);
+    text-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+    white-space: normal; /* Ensures text wraps to the next line */
+    /* Removed word-break: break-word; to prevent awkward breaking */
 }
 .services p {
     color: var(--text-muted);
-    font-size: 1.05em;
+    font-size: 1.1em;
 }
-/* Style for your custom image icons */
 .service-icon-img {
-    width: 80px; /* Adjust as needed, but start here */
-    height: 80px; /* Ensure height matches width for square icons */
-    object-fit: contain; /* Prevents image distortion */
-    margin-bottom: 20px;
-    /* You can add a subtle filter or shadow here for glow effect */
-    filter: drop-shadow(0 0 10px rgba(224, 255, 255, 0.5));
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+    margin-bottom: 25px;
+    filter: drop-shadow(0 0 15px rgba(224, 255, 255, 0.6));
     transition: filter var(--transition-speed);
+    z-index: 1;
+    position: relative;
 }
 .services div:hover .service-icon-img {
-    filter: drop-shadow(0 0 15px var(--color-cosmic-gold)); /* Gold glow on hover */
+    filter: drop-shadow(0 0 30px var(--color-cosmic-gold));
 }
 
-/* Testimonials Section */
+/* Testimonials Section - RETAINED from second design */
 .testimonial-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 40px;
-    margin-top: 4rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 50px;
+    margin-top: 5rem;
 }
 .testimonial {
     background: var(--color-midnight-blue);
-    padding: 30px;
-    border-left: 6px solid var(--color-amethyst); /* Amethyst border for testimonials */
+    padding: 35px;
+    border-left: 8px solid var(--color-amethyst);
     border-radius: var(--border-radius-soft);
     box-shadow: var(--shadow-deep);
-    transition: transform var(--transition-speed), box-shadow var(--transition-speed);
+    transition: transform var(--transition-speed), box-shadow var(--transition-speed), border-left-color var(--transition-speed), background-color var(--transition-speed);
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Push span to bottom */
+    justify-content: space-between;
 }
 .testimonial:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 12px 30px rgba(0,0,0,0.6);
-    border-left-color: var(--color-cosmic-gold); /* Change border on hover */
+    transform: translateY(-12px);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+    border-left-color: var(--color-cosmic-gold);
+    background-color: var(--color-dark-sapphire);
 }
 .testimonial .short {
     font-style: italic;
-    font-size: 1.1em;
-    margin-bottom: 15px;
+    font-size: 1.15em;
+    margin-bottom: 20px;
     color: var(--text-primary);
+    text-shadow: 0.5px 0.5px 1.5px rgba(0,0,0,0.4);
 }
 .testimonial span {
     display: block;
-    margin-top: 15px;
+    margin-top: 20px;
     text-align: right;
     font-weight: bold;
-    color: var(--color-celestial-blue); /* Muted blue for name */
-    font-size: 1em;
-    font-family: var(--font-body); /* Ensure it uses body font */
+    color: var(--color-celestial-blue);
+    font-size: 1.05em;
+    font-family: var(--font-body);
 }
 .testimonial button {
     background: none;
     border: none;
     color: var(--color-cosmic-gold);
-    font-size: 0.95em;
+    font-size: 1em;
     cursor: pointer;
-    padding: 5px 0;
-    margin-top: 10px;
+    padding: 8px 0;
+    margin-top: 15px;
     text-decoration: underline;
     transition: all var(--transition-speed);
     font-family: var(--font-body);
 }
 .testimonial button:hover {
     color: var(--color-ethereal-light);
-    transform: translateX(5px);
+    transform: translateX(10px);
+    text-shadow: 0 0 10px rgba(224, 255, 255, 0.7);
 }
 
-/* Popup Styles */
+/* Popup Styles - RETAINED from second design */
 .popup {
-    display: none; /* Default to hidden */
+    display: none;
     position: fixed;
-    z-index: 10000; /* Highest z-index */
+    z-index: 10000;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.9); /* Darker, more opaque background */
-    backdrop-filter: blur(8px); /* Subtle blur for modern feel */
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(10px);
     color: var(--text-primary);
     padding: 20px;
-    overflow-y: auto;
     align-items: center;
     justify-content: center;
+    -webkit-overflow-scrolling: touch;
+    overflow-y: auto;
 }
+
 .popup .content {
-    max-width: 750px; /* Wider content for readability */
+    max-width: 800px;
     background: var(--color-midnight-blue);
-    padding: 45px; /* More padding */
-    border: 2px solid var(--color-cosmic-gold);
+    padding: 50px;
+    border: 3px solid var(--color-cosmic-gold);
     border-radius: var(--border-radius-soft);
-    box-shadow: 0 10px 40px rgba(0,0,0,0.8); /* Deeper shadow */
-    text-align: center; /* Center content in popup */
+    box-shadow: 0 15px 50px rgba(0,0,0,0.9);
+    text-align: center;
     position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 30px 20px;
+    width: calc(100% - 40px);
+    box-sizing: border-box;
 }
+
 .popup .content p {
-    font-size: 1.2em;
-    line-height: 1.8;
-    margin-bottom: 25px;
+    font-size: 1.3em;
+    line-height: 1.9;
+    margin-bottom: 30px;
     color: var(--text-primary);
 }
 .popup button.close-btn {
     background: var(--color-cosmic-gold);
     color: var(--color-deep-space);
-    padding: 14px 30px;
+    padding: 16px 35px;
     border-radius: 50px;
     font-family: var(--font-heading);
     font-weight: 700;
-    font-size: 1.1em;
+    font-size: 1.15em;
     text-transform: uppercase;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
 }
 .popup button.close-btn:hover {
     background: var(--color-ethereal-light);
     color: var(--color-deep-space);
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.6);
 }
 
-/* Contact Section */
+/* Contact Section - RETAINED from second design */
 #contact {
     background-color: var(--color-deep-space);
 }
@@ -365,39 +450,39 @@ section:nth-of-type(even) {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 40px;
-    max-width: 650px; /* Constrain width for better readability */
+    gap: 45px;
+    max-width: 700px;
     margin: 0 auto;
 }
 .contact-intro p {
-    font-size: 1.15em;
-    margin-bottom: 30px;
+    font-size: 1.2em;
+    margin-bottom: 35px;
     color: var(--text-primary);
     text-align: center;
 }
 .contact-details {
-    margin-top: 20px; /* Reduced margin as it's not following a form */
+    margin-top: 25px;
     text-align: center;
     width: 100%;
 }
 .contact-details h3 {
      color: var(--text-secondary);
-     margin-bottom: 25px;
-     font-size: 2em;
+     margin-bottom: 30px;
+     font-size: 2.2em;
 }
 .contact-details p {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 15px;
-    font-size: 1.1em;
-    margin-bottom: 12px;
+    gap: 20px;
+    font-size: 1.15em;
+    margin-bottom: 15px;
     color: var(--text-primary);
 }
 .contact-details p i {
     color: var(--color-cosmic-gold);
-    font-size: 1.3em;
-    text-shadow: 0 0 5px rgba(255,215,0,0.3);
+    font-size: 1.4em;
+    text-shadow: 0 0 8px rgba(255,215,0,0.5);
 }
 .contact-details a {
     color: var(--text-primary);
@@ -406,67 +491,68 @@ section:nth-of-type(even) {
     color: var(--color-cosmic-gold);
 }
 
-/* Social links removed */
-
-/* Footer */
+/* Footer - RETAINED from second design */
 footer {
     text-align: center;
-    font-size: 0.9em;
-    border-top: 1px solid var(--color-celestial-blue); /* Subtle blue line */
-    padding-top: 40px;
+    font-size: 0.95em;
+    border-top: 2px solid var(--color-celestial-blue);
+    padding-top: 50px;
     color: var(--text-muted);
     background-color: var(--color-deep-space);
+    box-shadow: inset 0 2px 10px rgba(79, 109, 151, 0.5);
 }
 .footer-links {
-    margin-top: 15px;
+    margin-top: 20px;
 }
 .footer-links a {
     color: var(--text-muted);
-    margin: 0 12px;
-    font-size: 0.95em;
+    margin: 0 15px;
+    font-size: 1em;
 }
 .footer-links a:hover {
     color: var(--color-ethereal-light);
 }
 
-/* Floating Navigation */
+/* Floating Navigation - Reverted to first design's values, now with size reduction */
 .floating-nav {
     position: fixed;
-    bottom: 40px; /* More space from bottom */
-    right: 40px; /* More space from right */
-    z-index: 9999; /* Higher z-index */
+    bottom: 40px;
+    right: 40px;
+    z-index: 9999;
     display: flex;
     flex-direction: column;
-    gap: 18px; /* More space between items */
+    gap: 18px;
 }
 .floating-nav a {
     display: inline-block;
-    background: linear-gradient(to bottom, var(--color-celestial-blue), var(--color-amethyst)); /* Blue-purple gradient */
+    background: linear-gradient(to bottom, var(--color-celestial-blue), var(--color-amethyst));
     color: var(--text-primary);
     text-decoration: none;
-    padding: 15px 25px;
+    padding: 12px 20px; /* Reduced from 15px 25px */
     border-radius: 50px;
-    font-size: 1em;
+    font-size: 0.95em; /* Reduced from 1em */
     font-weight: bold;
     box-shadow: 0 5px 15px rgba(0,0,0,0.5);
     transition: all var(--transition-speed);
     text-align: center;
-    min-width: 140px; /* Wider buttons */
-    border: 2px solid var(--color-ethereal-light); /* Light border */
+    min-width: 120px; /* Reduced from 140px */
+    border: 2px solid var(--color-ethereal-light);
 }
 .floating-nav a:hover {
-    background: linear-gradient(to top, var(--color-celestial-blue), var(--color-amethyst)); /* Reverse gradient on hover */
-    color: var(--color-cosmic-gold); /* Gold text on hover */
+    background: linear-gradient(to top, var(--color-celestial-blue), var(--color-amethyst));
+    color: var(--color-cosmic-gold);
     box-shadow: 0 8px 20px rgba(0,0,0,0.7);
     transform: translateY(-5px) scale(1.03);
-    border-color: var(--color-cosmic-gold); /* Gold border on hover */
+    border-color: var(--color-cosmic-gold);
 }
+
 
 /* Responsive Design */
 @media (max-width: 992px) {
     h1 { font-size: 4em; }
-    h2 { font-size: 2.5em; }
-    h3 { font-size: 1.8em; }
+    h2 { font-size: 3em; }
+    h3 { font-size: 2em; }
+
     .hero {
         height: auto;
         padding: 100px 20px;
@@ -478,34 +564,40 @@ footer {
     .hero p { font-size: 1.5em; }
 
     section {
-        padding: 80px 20px;
+        padding: 90px 20px;
     }
     .services {
-        gap: 30px;
+        gap: 40px;
     }
     .services div {
-        padding: 30px;
+        padding: 35px;
+    }
+    .services div h3 {
+        font-size: 1.8em;
+        white-space: normal;
+        word-break: break-word;
     }
 }
 
 @media (max-width: 768px) {
     h1 { font-size: 3em; }
-    h2 { font-size: 2.2em; }
-    h3 { font-size: 1.6em; }
+    h2 { font-size: 2.5em; }
+    h3 { font-size: 1.8em; }
+
     .hero h1 { font-size: 2.8em; }
     .hero p { font-size: 1.3em; }
     .btn {
-        padding: 14px 30px;
-        font-size: 1em;
+        padding: 16px 35px;
+        font-size: 1.05em;
     }
     section {
-        padding: 60px 20px;
+        padding: 70px 20px;
     }
     .services {
-        grid-template-columns: 1fr; /* Stack on small tablets */
+        grid-template-columns: 1fr;
     }
     .floating-nav {
-        flex-direction: row; /* Horizontal nav on smaller screens */
+        flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
         bottom: 20px;
@@ -515,49 +607,54 @@ footer {
     }
     .floating-nav a {
         min-width: unset;
-        padding: 12px 20px;
-        font-size: 0.9em;
+        padding: 10px 18px; /* Reduced from 12px 20px */
+        font-size: 0.85em; /* Reduced from 0.9em */
     }
     .testimonial button {
-        font-size: 0.85em;
+        font-size: 0.9em;
     }
     .popup .content {
-        margin: 30px 15px;
-        padding: 30px;
+        margin: 25px 20px;
+        max-height: calc(100vh - 50px);
+        width: calc(100% - 40px);
     }
     .contact-details p {
         flex-direction: column;
-        gap: 5px;
+        gap: 8px;
+    }
+    .services div h3 {
+        font-size: 1.6em;
+        white-space: normal;
+        word-break: break-word;
     }
 }
 
 @media (max-width: 480px) {
     h1 { font-size: 2.5em; }
-    h2 { font-size: 1.8em; }
-    h3 { font-size: 1.4em; }
+    h2 { font-size: 2em; }
+    h3 { font-size: 1.6em; }
+
     .hero img {
         width: 200px;
     }
     .hero h1 { font-size: 2.2em; }
     .hero p { font-size: 1.1em; }
     .btn {
-        width: 90%;
-        max-width: 280px;
+        width: 95%;
+        max-width: 300px;
         margin-left: auto;
         margin-right: auto;
     }
     .floating-nav a {
-        padding: 10px 15px;
-        font-size: 0.8em;
+        padding: 8px 12px; /* Reduced from 10px 15px */
+        font-size: 0.75em; /* Reduced from 0.8em */
     }
     .services div {
-        padding: 25px;
+        padding: 30px;
     }
-    .popup .content {
-        padding: 25px;
-    }
-    .popup button.close-btn {
-        padding: 10px 20px;
-        font-size: 1em;
+    .services div h3 {
+        font-size: 1.4em;
+        white-space: normal;
+        word-break: break-word;
     }
 }
