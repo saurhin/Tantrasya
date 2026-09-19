@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="tight">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Consultations</p>
+      <h1>Consultations &amp; Fees</h1>
+    </div>
+    <div class="article-body" style="margin: 0; max-width: 720px;">
+      {{ page.content | safe }}
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <div class="price-table">
+      <div class="price-row">
+        <div>
+          <span class="price-name">Personal Consultation</span>
+          <span class="price-note">A focused one-on-one session, in person or remote</span>
+        </div>
+        <span class="price-amount">₹1,500</span>
+      </div>
+      <div class="price-row">
+        <div>
+          <span class="price-name">Follow-up / Ongoing Guidance</span>
+          <span class="price-note">For continuing an existing consultation</span>
+        </div>
+        <span class="price-amount">₹501</span>
+      </div>
+      <div class="price-row">
+        <div>
+          <span class="price-name">Home Visit — Energy / Paranormal Assessment</span>
+          <span class="price-note">Within {{ site.city }}</span>
+        </div>
+        <span class="price-amount">₹5,100</span>
+      </div>
+      <div class="price-row">
+        <div>
+          <span class="price-name">Home Visit — Outside {{ site.city }}</span>
+          <span class="price-note">Plus travel costs</span>
+        </div>
+        <span class="price-amount">₹7,100 + travel</span>
+      </div>
+      <div class="price-row">
+        <div>
+          <span class="price-name">Crystals / Remedies</span>
+          <span class="price-note">Material cost plus preparation</span>
+        </div>
+        <span class="price-amount">Material cost + ₹1,000</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section-alt tight">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Guidelines</p>
+      <h2>Before you book</h2>
+    </div>
+    <div class="grid grid-3">
+      <div class="card">
+        <h3>Format</h3>
+        <p>Consultations happen in person in {{ site.city }} or remotely by video/phone — let us know your preference when you get in touch.</p>
+      </div>
+      <div class="card">
+        <h3>Timing</h3>
+        <p>A first consultation typically runs 45–60 minutes; follow-ups are shorter and more focused.</p>
+      </div>
+      <div class="card">
+        <h3>Preparation</h3>
+        <p>No special preparation is required — just come ready to talk plainly about what's brought you here.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <div class="cta-band">
+      <p class="eyebrow">Ready?</p>
+      <h2>Start with a personal consultation</h2>
+      <div class="cta-ctas">
+        <a class="btn btn-primary" href="/contact/">Book now</a>
+        <a class="btn btn-outline" href="/services/">Explore services first</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

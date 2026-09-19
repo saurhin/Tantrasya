@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="tight">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Services</p>
+      <h1>Eight paths into the practice</h1>
+      <p class="hero-lede">Each area of practice is offered on its own terms — explore what each one actually involves before you book.</p>
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <div class="grid grid-4">
+      {% for svc in services %}
+      <a class="card service-card" href="/services/{{ svc.slug }}/">
+        <span class="service-icon">{{ svc.icon_glyph }}</span>
+        <h3>{{ svc.title }}</h3>
+        <p>{{ svc.summary }}</p>
+        <span class="card-link">Learn more →</span>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <div class="cta-band">
+      <p class="eyebrow">Not sure where to start?</p>
+      <h2>Tell us what you're carrying — we'll point you the right way</h2>
+      <div class="cta-ctas">
+        <a class="btn btn-primary" href="/contact/">Ask a question</a>
+        <a class="btn btn-outline" href="/consultations/">See consultation fees</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

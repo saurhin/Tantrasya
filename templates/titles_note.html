@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="tight">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">A Note</p>
+      <h1>A Note on Titles, Masters &amp; Everything Else</h1>
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <div class="article-body">
+      {{ page.content | safe }}
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <div class="cta-band">
+      <p class="eyebrow">The Practice</p>
+      <h2>Less branding. More work.</h2>
+      <div class="cta-ctas">
+        <a class="btn btn-primary" href="/contact/">Discuss a Case</a>
+        <a class="btn btn-outline" href="/about/">About Tantrasya</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="hero">
+  <div class="wrap" style="display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 56px; align-items: center;">
+    <div class="hero-copy">
+      <p class="hero-kicker">About</p>
+      <h1>About Tantrasya</h1>
+      <p class="hero-lede">An independent practice focused on paranormal investigation and traditional occult practice.</p>
+    </div>
+    <div style="display: flex; align-items: center; justify-content: center;">
+      <img
+        src="/static/images/about-hero.jpg"
+        alt="Practitioner's altar — books, candles, crystals and ritual objects"
+        style="width: 100%; max-width: 480px; height: auto; border-radius: var(--radius); box-shadow: var(--shadow); display: block;"
+      >
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <div class="article-body" style="margin: 0; max-width: 760px;">
+      {{ page.content | safe }}
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <div class="cta-band">
+      <p class="eyebrow">Begin</p>
+      <h2>Have something you would like to discuss?</h2>
+      <p>Whether you are dealing with something you cannot explain, or you believe a situation may have an occult or spiritual dimension — reach out.</p>
+      <div class="cta-ctas">
+        <a class="btn btn-primary" href="/contact/">Discuss a Case</a>
+        <a class="btn btn-outline" href="/paranormal-investigation/">Paranormal Investigation</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+

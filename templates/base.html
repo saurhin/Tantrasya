@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{ title }}</title>
+<meta name="description" content="{{ meta_description }}">
+<link rel="canonical" href="{{ canonical_url }}">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{ site.name }}">
+<meta property="og:title" content="{{ title }}">
+<meta property="og:description" content="{{ meta_description }}">
+<meta property="og:url" content="{{ canonical_url }}">
+<meta property="og:image" content="{{ site.url }}/static/images/og-cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ title }}">
+<meta name="twitter:description" content="{{ meta_description }}">
+
+<link rel="icon" href="/static/images/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/css/style.css?v={{ asset_version }}">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="wordmark" href="/">
+      <img class="wordmark-logo" src="/static/images/logo.svg" alt="Tantrasya">
+      <span class="wordmark-text">{{ site.name }}</span>
+    </a>
+
+    <nav class="site-nav" aria-label="Primary">
+      <ul>
+        {% for item in site.nav %}
+        <li><a href="{{ item.href }}"{% if canonical_url == site.url + item.href or (item.href == '/' and canonical_url == site.url + '/') %} aria-current="page"{% endif %}>{{ item.label }}</a></li>
+        {% endfor %}
+      </ul>
+    </nav>
+
+    <a class="btn btn-small btn-primary header-cta" href="/contact/">Discuss a case</a>
+
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+
+  <div class="mobile-nav" id="mobile-nav">
+    <ul>
+      {% for item in site.nav %}
+      <li><a href="{{ item.href }}">{{ item.label }}</a></li>
+      {% endfor %}
+      <li><a class="btn btn-primary" href="/contact/">Discuss a case</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="main">
+{% block content %}{% endblock %}
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div class="footer-brand">
+      <span class="wordmark-text footer-word">{{ site.name }}</span>
+      <p>{{ site.tagline }}.</p>
+    </div>
+
+    <div class="footer-col">
+      <h3>Navigate</h3>
+      <ul>
+        {% for item in site.nav %}
+        <li><a href="{{ item.href }}">{{ item.label }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h3>Also</h3>
+      <ul>
+        <li><a href="/titles-note/">A Note on Titles, Masters &amp; Everything Else</a></li>
+        <li><a href="/contact/">Discuss a Case →</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h3>Reach out</h3>
+      <ul>
+        <li><a href="mailto:{{ site.email }}">{{ site.email }}</a></li>
+        <li>{{ site.city }}, India</li>
+        <li><a href="/contact/">Contact form →</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="wrap footer-bottom">
+    <p>&copy; {{ year }} {{ site.name }}. All rights reserved.</p>
+    <p class="footer-note">A private practice concerned with paranormal investigation and occult practice. Discretion is maintained around all cases.</p>
+  </div>
+</footer>
+
+<script src="/static/js/main.js?v={{ asset_version }}"></script>
+</body>
+</html>

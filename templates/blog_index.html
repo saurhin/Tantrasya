@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="tight">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Blog</p>
+      <h1>Notes from the practice</h1>
+      <p class="hero-lede">Writing on crystals, energy work, the occult, paranormal investigation, and psychic and mediumship practice — a slowly growing library, not a content mill.</p>
+    </div>
+
+    <div class="blog-filter" id="blog-filter">
+      <button type="button" class="active" data-filter="all">All</button>
+      {% for cat in categories %}
+      <button type="button" data-filter="{{ cat.slug }}">{{ cat.name }}</button>
+      {% endfor %}
+    </div>
+
+    <p id="blog-empty-state" class="blog-empty" hidden>No articles in this category yet — check back soon.</p>
+
+    {% for group in posts_by_year %}
+    <div class="blog-year-group" data-year="{{ group.year }}">
+      <h2 class="year-heading">{{ group.year }}</h2>
+      <div class="grid grid-3">
+        {% for post in group.posts %}
+        <a class="post-card" href="/blog/{{ post.slug }}/" data-category="{{ post.category_slug }}">
+          {% if post.image %}
+          <img class="post-thumb" src="/static/images/blog/{{ post.image }}" alt="{{ post.title }}">
+          {% else %}
+          <span class="post-thumb" aria-hidden="true"></span>
+          {% endif %}
+          <span class="post-meta">{{ post.category }} · {{ post.date_display }}</span>
+          <h3>{{ post.title }}</h3>
+          <p>{{ post.description }}</p>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+{% endblock %}

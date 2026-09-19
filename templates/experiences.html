@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="tight">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Experiences</p>
+      <h1>{{ page.title }}</h1>
+    </div>
+    <div class="article-body" style="margin: 0 0 40px; max-width: 720px;">
+      {{ page.content | safe }}
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <!--
+      Replace these placeholder testimonials with the genuine ones from the
+      existing tantrasya.in site — as many as are available.
+    -->
+    <div class="grid grid-3">
+      <div class="card testimonial-card">
+        <span class="quote-mark">"</span>
+        <p>[Placeholder — replace with a genuine testimonial from the existing site.]</p>
+        <footer>— Client, Crystal Healing</footer>
+      </div>
+      <div class="card testimonial-card">
+        <span class="quote-mark">"</span>
+        <p>[Placeholder — replace with a genuine testimonial from the existing site.]</p>
+        <footer>— Client, Energy &amp; Chakra Healing</footer>
+      </div>
+      <div class="card testimonial-card">
+        <span class="quote-mark">"</span>
+        <p>[Placeholder — replace with a genuine testimonial from the existing site.]</p>
+        <footer>— Client, Home Visit</footer>
+      </div>
+      <div class="card testimonial-card">
+        <span class="quote-mark">"</span>
+        <p>[Placeholder — replace with a genuine testimonial from the existing site.]</p>
+        <footer>— Client, Psychic Reading</footer>
+      </div>
+      <div class="card testimonial-card">
+        <span class="quote-mark">"</span>
+        <p>[Placeholder — replace with a genuine testimonial from the existing site.]</p>
+        <footer>— Client, Mediumship</footer>
+      </div>
+      <div class="card testimonial-card">
+        <span class="quote-mark">"</span>
+        <p>[Placeholder — replace with a genuine testimonial from the existing site.]</p>
+        <footer>— Client, Consultation</footer>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <div class="cta-band">
+      <p class="eyebrow">Your turn</p>
+      <h2>Curious what a consultation with Tantrasya could mean for you?</h2>
+      <div class="cta-ctas">
+        <a class="btn btn-primary" href="/consultations/">Book a consultation</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

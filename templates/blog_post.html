@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% block content %}
+
+<article>
+  <section class="tight">
+    <div class="wrap">
+      <div class="article-header">
+        <p class="eyebrow" style="justify-content:center;">{{ post.category }}</p>
+        <h1>{{ post.title }}</h1>
+        <p class="post-meta">{{ post.date_display }}</p>
+      </div>
+
+      {% if post.image %}
+      <img class="article-cover" src="/static/images/blog/{{ post.image }}" alt="{{ post.title }}">
+      {% endif %}
+
+      <div class="article-body">
+        {{ post.content | safe }}
+      </div>
+    </div>
+  </section>
+
+  {% if related %}
+  <section class="section-alt tight">
+    <div class="wrap">
+      <div class="section-head center">
+        <p class="eyebrow">Related</p>
+        <h2>More on {{ post.category }}</h2>
+      </div>
+      <div class="grid grid-3">
+        {% for r in related %}
+        <a class="post-card" href="/blog/{{ r.slug }}/">
+          {% if r.image %}
+          <img class="post-thumb" src="/static/images/blog/{{ r.image }}" alt="{{ r.title }}">
+          {% else %}
+          <span class="post-thumb" aria-hidden="true"></span>
+          {% endif %}
+          <span class="post-meta">{{ r.category }} · {{ r.date_display }}</span>
+          <h3>{{ r.title }}</h3>
+          <p>{{ r.description }}</p>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+  {% endif %}
+
+  <section class="tight">
+    <div class="wrap">
+      <div class="cta-band">
+        <p class="eyebrow">Have a question of your own?</p>
+        <h2>Bring it to a consultation</h2>
+        <div class="cta-ctas">
+          <a class="btn btn-primary" href="/consultations/">Book a consultation</a>
+          <a class="btn btn-outline" href="/blog/">Read more articles</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</article>
+
+{% endblock %}

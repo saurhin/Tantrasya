@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="tight">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Contact</p>
+      <h1>Discuss a Case</h1>
+    </div>
+    <div class="article-body" style="margin: 0 0 8px; max-width: 640px;">
+      <p>If you are experiencing something you cannot readily explain, or you believe a situation may have an occult or spiritual dimension, you may contact Tantrasya to discuss it.</p>
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <div class="contact-layout">
+
+      <div class="card contact-info-card">
+        <h3>Reach Tantrasya</h3>
+        <p>Please provide enough information to understand the nature of your enquiry. Personal information shared is treated with discretion.</p>
+        <ul class="contact-info-list">
+          <li><span class="dot"></span><span>Email<br><a href="mailto:{{ site.email }}">{{ site.email }}</a></span></li>
+          <li><span class="dot"></span><span>Location<br>{{ site.city }}, India — home visits and remote sessions available</span></li>
+          <li><span class="dot"></span><span>Response time<br>Most enquiries are answered within 1–2 days</span></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <form id="contact-form" action="{{ site.formspree_endpoint }}" method="POST">
+          <input type="text" name="_gotcha" class="form-honeypot" tabindex="-1" autocomplete="off">
+
+          <div class="form-field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required autocomplete="name">
+          </div>
+
+          <div class="form-field">
+            <label for="email">Email address</label>
+            <input type="email" id="email" name="email" required autocomplete="email">
+          </div>
+
+          <div class="form-field">
+            <label for="phone">Phone / WhatsApp (optional)</label>
+            <input type="tel" id="phone" name="phone" autocomplete="tel">
+          </div>
+
+          <div class="form-field">
+            <label for="location">Location</label>
+            <input type="text" id="location" name="location" placeholder="City, area or region">
+          </div>
+
+          <div class="form-field">
+            <label for="subject">What would you like to discuss?</label>
+            <select id="subject" name="subject">
+              <option>Paranormal investigation</option>
+              <option>Occult practice</option>
+              <option>Tantra / mantra</option>
+              <option>Unexplained experience</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label for="message">Tell me about the situation</label>
+            <textarea id="message" name="message" required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">Send Enquiry</button>
+
+          <div id="form-status" class="form-status" role="status"></div>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
