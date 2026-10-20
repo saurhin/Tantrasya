@@ -29,6 +29,7 @@
     }
 
     var submitBtn = form.querySelector('button[type="submit"]');
+    var originalLabel = submitBtn.textContent;
     submitBtn.disabled = true;
     submitBtn.textContent = "Sending…";
 
@@ -50,7 +51,7 @@
       })
       .finally(function () {
         submitBtn.disabled = false;
-        submitBtn.textContent = "Send message";
+        submitBtn.textContent = originalLabel;
       });
   });
 

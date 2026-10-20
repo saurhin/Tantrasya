@@ -1,0 +1,223 @@
+/* ==========================================================================
+   Crystals — loaded only on crystal pages
+   ========================================================================== */
+
+/* Category grid */
+.grid-crystal {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 28px;
+  margin-top: 40px;
+}
+
+.crystal-card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.crystal-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+
+.crystal-thumb {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  position: relative;
+}
+
+.crystal-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.crystal-placeholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--plum) 0%, var(--indigo) 60%, var(--terracotta-deep) 100%);
+  color: rgba(255,255,255,0.75);
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-style: italic;
+  letter-spacing: 0.03em;
+}
+
+.crystal-info {
+  padding: 18px 20px 22px;
+}
+.crystal-info h3 {
+  font-size: 1.1rem;
+  margin: 0 0 8px;
+  color: var(--ink);
+}
+.crystal-info p {
+  font-size: 0.9rem;
+  color: var(--ink-soft);
+  margin: 0;
+  line-height: 1.55;
+}
+
+/* ── Category sub-page gallery ──
+   Each photo + its name is one card: the name sits in the cream space
+   BELOW the photo (not overlaid on it), so it stays readable regardless
+   of how light or busy the photo is. Only the photo itself is clickable. */
+.crystal-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 36px 28px;
+  margin-top: 32px;
+}
+
+.gallery-card { display: flex; flex-direction: column; }
+
+.gallery-item {
+  border-radius: 14px;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  cursor: pointer;
+  position: relative;
+  background: linear-gradient(135deg, var(--plum), var(--indigo));
+}
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+.gallery-item:hover img { transform: scale(1.05); }
+
+.gallery-caption {
+  margin-top: 12px;
+  text-align: center;
+}
+.gallery-caption-name {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+.gallery-caption-rule {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background: var(--marigold);
+  margin: 6px auto 0;
+  border-radius: 2px;
+}
+
+/* Lightbox */
+.lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 10, 30, 0.92);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+.lightbox.open { display: flex; }
+/* Image + caption travel together as one column, so the name always
+   sits in the dark space just below the photo — never on top of it,
+   regardless of the photo's shape or the screen's size. (Previously the
+   caption was pinned a fixed distance from the browser window's bottom
+   edge, which put it on top of the photo on shorter/wider screens.) */
+.lightbox-frame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 90vw;
+  max-height: 90vh;
+}
+.lightbox img {
+  max-width: 90vw;
+  max-height: calc(90vh - 48px);
+  object-fit: contain;
+  border-radius: 12px;
+  box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+}
+.lightbox-close {
+  position: fixed;
+  top: 20px; right: 28px;
+  font-size: 2rem;
+  color: #fff;
+  cursor: pointer;
+  line-height: 1;
+  opacity: 0.8;
+  background: none; border: none;
+}
+.lightbox-close:hover { opacity: 1; }
+.lightbox-caption {
+  margin-top: 16px;
+  text-align: center;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  pointer-events: none;
+}
+
+/* No images placeholder */
+.gallery-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--ink-soft);
+  font-style: italic;
+}
+
+/* Breadcrumb */
+.crystal-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-bottom: 4px;
+}
+.crystal-breadcrumb a {
+  color: var(--plum);
+  text-decoration: none;
+  font-weight: 500;
+}
+.crystal-breadcrumb a:hover { text-decoration: underline; }
+.crumb-sep { color: var(--ink-faint); }
+
+/* Prev / Back / Next nav */
+.crystal-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 48px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(184,135,58,0.25);
+}
+.crystal-nav-prev,
+.crystal-nav-next { min-width: 140px; }
+.crystal-nav-next { text-align: right; }
+
+@media (max-width: 640px) {
+  .crystal-nav {
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+  }
+  .crystal-nav-prev,
+  .crystal-nav-next {
+    min-width: 0;
+    text-align: center;
+  }
+}

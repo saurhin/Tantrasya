@@ -1,29 +1,29 @@
-/* ==========================================================================
-   Tantrasya — design tokens
+﻿/* ==========================================================================
+   Tantrasya â€” design tokens
    Palette drawn from ritual materials: marigold, sindoor, tulsi leaf, dusk
-   indigo, temple brass. Warm and saturated on purpose — no black, no grey,
+   indigo, temple brass. Warm and saturated on purpose â€” no black, no grey,
    no washed-out pastel.
    ========================================================================== */
 
 :root {
   /* base surfaces */
-  --cream:        #FBEEDA;   /* page background — warm papaya, not stark white */
+  --cream:        #FBEEDA;   /* page background â€” warm papaya, not stark white */
   --cream-deep:    #F5DFB8;   /* alternating section background */
   --card:         #FFF8EC;   /* card surface, lifted above the page */
 
   /* ink (replaces black/grey entirely) */
-  --ink:          #3A2013;   /* primary text — deep ember brown */
+  --ink:          #3A2013;   /* primary text â€” deep ember brown */
   --ink-soft:     #6E4B34;   /* secondary text */
   --ink-faint:    #9A7458;   /* tertiary / meta text */
 
   /* accents */
-  --marigold:     #E89327;   /* primary accent — marigold gold */
+  --marigold:     #E89327;   /* primary accent â€” marigold gold */
   --marigold-deep:#C97614;
-  --terracotta:   #C1442C;   /* secondary accent — sindoor red */
+  --terracotta:   #C1442C;   /* secondary accent â€” sindoor red */
   --terracotta-deep:#9E3320;
-  --plum:         #6E2D63;   /* mystical accent — twilight plum */
-  --moss:         #4C6B37;   /* grounding accent — tulsi green */
-  --indigo:       #2B2350;   /* deep section background — dusk sky, not black */
+  --plum:         #6E2D63;   /* mystical accent â€” twilight plum */
+  --moss:         #4C6B37;   /* grounding accent â€” tulsi green */
+  --indigo:       #2B2350;   /* deep section background â€” dusk sky, not black */
   --indigo-soft:  #3E3468;
   --brass:        #B8873A;   /* hairline / rule color */
 
@@ -154,7 +154,7 @@ p:last-child { margin-bottom: 0; }
   padding-right: 2px;
   border-radius: 0;
 }
-.btn-ghost::after { content: "→"; transition: transform 0.18s ease; }
+.btn-ghost::after { content: "\2192"; transition: transform 0.18s ease; }
 .btn-ghost:hover::after { transform: translateX(4px); }
 
 /* ==========================================================================
@@ -259,7 +259,7 @@ section.tight { padding: 56px 0; }
 .section-head { max-width: 680px; margin: 0 0 48px; }
 .section-head.center { margin-left: auto; margin-right: auto; text-align: center; }
 
-/* Arch motif — recurring threshold shape used for the hero image, section
+/* Arch motif â€” recurring threshold shape used for the hero image, section
    dividers and portrait frames. Represents "crossing between the seen and
    unseen" without borrowing any specific religious iconography. */
 .arch-frame {
@@ -700,7 +700,7 @@ section.tight { padding: 56px 0; }
   h1 { font-size: 2.5rem; }
 }
 
-/* ABOUT TEASER — homepage two-column layout with portrait image */
+/* ABOUT TEASER â€” homepage two-column layout with portrait image */
 .about-teaser-grid {
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
@@ -720,7 +720,7 @@ section.tight { padding: 56px 0; }
   .about-teaser-image { order: -1; }
 }
 
-/* SIGIL STRIP — decorative divider using the practitioner's own sigils */
+/* SIGIL STRIP â€” decorative divider using the practitioner's own sigils */
 .sigil-strip {
   display: flex;
   align-items: center;
@@ -744,7 +744,7 @@ section.tight { padding: 56px 0; }
 }
 
 /* Straddles the boundary between the consultations (tan) and blog (cream)
-   sections — vertically centers the sigil strip right on the color line. */
+   sections â€” vertically centers the sigil strip right on the color line. */
 .sigil-strip-straddle {
   position: relative;
   margin-top: -45px;
@@ -752,4 +752,32 @@ section.tight { padding: 56px 0; }
 }
 @media (max-width: 760px) {
   .sigil-strip-straddle { margin-top: -30px; }
+}
+
+/* ---------------------------------------------------------------------------
+   Split hero (Paranormal Investigation, Occult Practice, About)
+   Text + image side by side on desktop; stacks to one column on mobile.
+   Kept in CSS (not inline styles) so the mobile rule below can override it.
+--------------------------------------------------------------------------- */
+.hero .wrap.hero-split {
+  grid-template-columns: 1.1fr 0.9fr;
+}
+.hero-media {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.hero-media img {
+  display: block;
+  width: 100%;
+  max-width: 480px;
+  height: auto;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+@media (max-width: 760px) {
+  .hero .wrap.hero-split {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
 }

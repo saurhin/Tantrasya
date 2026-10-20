@@ -16,6 +16,7 @@ Writes:
 """
 
 import os
+import re
 import sys
 import shutil
 import datetime
@@ -25,6 +26,18 @@ import socketserver
 import webbrowser
 import markdown
 from jinja2 import Environment, FileSystemLoader, select_autoescape
+
+
+def caption_from_filename(filename):
+    """Turn an image filename into a display caption.
+    'amethyst.jpg' -> 'Amethyst', 'clear-quartz.jpg' -> 'Clear Quartz',
+    'rose_quartz_2.jpg' -> 'Rose Quartz 2', 'bracelets..jpg' -> 'Bracelets'.
+    """
+    stem = os.path.splitext(filename)[0]
+    stem = re.sub(r"[-_]+", " ", stem)
+    stem = re.sub(r"[^A-Za-z0-9 ]+", " ", stem)
+    stem = re.sub(r"\s+", " ", stem).strip()
+    return stem.title() if stem else "Photo"
 
 # ---------------------------------------------------------------------------
 # Configuration
@@ -44,10 +57,27 @@ SITE = {
         {"label": "Home",                     "href": "/"},
         {"label": "Paranormal Investigation", "href": "/paranormal-investigation/"},
         {"label": "Occult Practice",          "href": "/occult-practice/"},
+        {"label": "Crystals",                 "href": "/crystals/"},
         {"label": "About",                    "href": "/about/"},
         {"label": "Contact",                  "href": "/contact/"},
     ],
 }
+
+# Crystal categories — to add an image later, drop a file named
+# {slug}.jpg (or .png) into static/images/crystals/ and rebuild.
+CRYSTALS = [
+    {"slug": "tumbles",     "name": "Tumbles",     "description": "Smooth, polished stones — easy to carry and work with. A great starting point for any collection."},
+    {"slug": "raw",         "name": "Raw",         "description": "Natural, unpolished crystals in their original form — unaltered and closest to the earth."},
+    {"slug": "bracelets",   "name": "Bracelets",   "description": "Crystal beads worn on the wrist — combining intention with everyday carry."},
+    {"slug": "shapes",      "name": "Shapes",      "description": "Crystals cut and polished into geometric forms — stars, hearts, skulls and more."},
+    {"slug": "free-forms",  "name": "Free Forms",  "description": "Uniquely shaped, hand-sculpted pieces — no two are the same."},
+    {"slug": "pyramids",    "name": "Pyramids",    "description": "Sacred geometry meets mineral energy — pyramid forms used in ritual and meditation."},
+    {"slug": "spheres",     "name": "Spheres",     "description": "Perfectly round crystal balls — used for scrying, display and energetic work."},
+    {"slug": "wands",       "name": "Wands",       "description": "Long, pointed or rounded crystal rods — used for directing energy in practice."},
+    {"slug": "cabachons",   "name": "Cabachons",   "description": "Flat-backed, dome-polished stones — popular for jewellery and carrying."},
+    {"slug": "towers",      "name": "Towers",      "description": "Tall, faceted points that stand upright — natural amplifiers and focal pieces."},
+    {"slug": "palm-stones", "name": "Palm Stones", "description": "Flat, oval stones sized to fit comfortably in the hand — ideal for meditation and grounding."},
+]
 
 ROOT          = os.path.dirname(os.path.abspath(__file__))
 CONTENT_DIR   = os.path.join(ROOT, "content")
@@ -282,6 +312,45 @@ def build():
             "endless modalities and louder claims of spiritual mastery.",
         ),
     ))
+
+    # Crystals index
+    crystals_page = pages_by_slug.get("crystals", {"title": "Crystals", "content": ""})
+    urls.append(render(
+        "crystals.html",
+        "crystals",
+        page=crystals_page,
+        crystals=CRYSTALS,
+        title=f"Crystals | {SITE['name']}",
+        meta_description="Browse crystal categories — tumbles, raw stones, bracelets, spheres, wands, towers and more.",
+    ))
+
+    # Crystal category sub-pages — auto-detect images in each folder
+    IMG_EXTS = {".jpg", ".jpeg", ".png", ".webp", ".gif"}
+    for i, crystal in enumerate(CRYSTALS):
+        cat_img_dir = os.path.join(STATIC_DIR, "images", "crystals", crystal["slug"])
+        if os.path.isdir(cat_img_dir):
+            filenames = sorted([
+                f for f in os.listdir(cat_img_dir)
+                if os.path.splitext(f)[1].lower() in IMG_EXTS
+            ])
+            images = [
+                {"src": f, "caption": caption_from_filename(f)}
+                for f in filenames
+            ]
+        else:
+            images = []
+        prev_crystal = CRYSTALS[i - 1] if i > 0 else None
+        next_crystal = CRYSTALS[i + 1] if i < len(CRYSTALS) - 1 else None
+        urls.append(render(
+            "crystal_category.html",
+            f"crystals/{crystal['slug']}",
+            crystal=crystal,
+            images=images,
+            prev_crystal=prev_crystal,
+            next_crystal=next_crystal,
+            title=f"{crystal['name']} Crystals | {SITE['name']}",
+            meta_description=crystal["description"],
+        ))
 
     # -- 404 ---------------------------------------------------------------
     tmpl = env.get_template("404.html")

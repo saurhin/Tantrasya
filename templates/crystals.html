@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block extra_css %}
+<link rel="stylesheet" href="/static/css/crystals.css?v={{ asset_version }}">
+{% endblock %}
+{% block content %}
+
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-copy">
+      <p class="hero-kicker">Tantrasya</p>
+      <h1>Crystals</h1>
+      <p class="hero-lede">A curated selection of crystals across eleven categories — from raw and natural pieces to polished forms, wands, spheres and more.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section-alt">
+  <div class="wrap">
+    <div class="section-head center">
+      <p class="eyebrow">Browse by category</p>
+      <h2>Eleven ways to explore</h2>
+    </div>
+    <div class="grid-crystal">
+      {% for crystal in crystals %}
+      <a class="crystal-card" href="/crystals/{{ crystal.slug }}/">
+        <div class="crystal-thumb">
+          <img
+            class="crystal-img"
+            src="/static/images/crystals/{{ crystal.slug }}.jpg"
+            alt="{{ crystal.name }}"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+          >
+          <div class="crystal-placeholder" style="display:none;">{{ crystal.name }}</div>
+        </div>
+        <div class="crystal-info">
+          <h3>{{ crystal.name }}</h3>
+          <p>{{ crystal.description }}</p>
+        </div>
+      </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="tight">
+  <div class="wrap">
+    <div class="cta-band">
+      <p class="eyebrow">Interested?</p>
+      <h2>Have a crystal or category in mind?</h2>
+      <p>Get in touch to discuss availability or make an enquiry.</p>
+      <div class="cta-ctas">
+        <a class="btn btn-primary" href="/contact/">Make an Enquiry</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

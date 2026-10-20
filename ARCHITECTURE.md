@@ -1,318 +1,213 @@
-# Tantrasya.in — Architecture & Build Write-Up
+# Tantrasya.in — Architecture
 
-*A technical record of how the Phase 1 redesign was planned and built.*
+Last updated: 10 Oct 2026, after the crystal-gallery caption redesign (name moved
+below the photo, bigger gap between tiles).
+This file replaced the older Antigravity/Sonnet 4.6 `ARCHITECTURE.md` on 9 Oct 2026 —
+that one described an earlier plan (blog, consultations, services) that is no longer
+how the live site works. This version describes what is actually built, and is kept
+current as changes ship.
 
----
-
-## 1. Where this started
-
-You brought a detailed Phase 1 scope document — 29 sections covering
-objective, visual direction, sitemap, page-by-page content requirements,
-consultation pricing, blog structure, technical architecture, SEO,
-responsiveness, and explicit Phase 2 exclusions. That document was the
-brief; everything below is how it was actually built.
-
-Three requirements from that brief shaped every technical decision:
-
-1. **Static site, GitHub Pages, custom domain via Hostinger** — no backend,
-   no database, no paid CMS.
-2. **Markdown-based blog**, publishable by adding a file — no complicated
-   CMS.
-3. **"Existing Python/Markdown approach... reused and adapted"** — you'd
-   already started down a Python path locally (`D:\tantrasya-python\
-   tantrasya-py`), not Ruby/Jekyll, so the generator had to be Python.
-
-Everything in this document follows from those three constraints.
+**Keep this file current**: any time a change is made to templates, build.py, content
+structure, or the live page list, update the relevant section below in the same pass.
 
 ---
 
-## 2. The core architectural decision: static generation, not a live app
+## 1. What this is
 
-The site is **pre-built once, on your machine, into plain HTML/CSS/JS**,
-then that output is what gets hosted. Nothing runs Python on the server.
+A static site generator written in plain Python (Jinja2 + markdown), no Ruby/Jekyll,
+no Node. `python build.py` reads `content/` and `templates/`, and writes a finished
+static site into `docs/`, which GitHub Pages serves directly. `CNAME` in `docs/` points
+the custom domain (tantrasya.in, on Hostinger) at GitHub Pages.
 
 ```
-Markdown content (content/)
-         +
-Jinja2 templates (templates/)
-         │
-         ▼
-      build.py            ← runs on YOUR computer only
-         │
-         ▼
-  docs/  (plain .html, .css, .js, images)
-         │
-         ▼
-     git push
-         │
-         ▼
-   GitHub Pages serves docs/ as-is
-         │
-         ▼
-     tantrasya.in  (via Hostinger DNS → GitHub Pages)
+python build.py            # one-off build into docs/
+python build.py --serve    # build + local preview server with auto-rebuild
 ```
 
-**Why this matters:** GitHub Pages can only serve static files — it has no
-Python runtime. So Python's job ends the moment `docs/` is generated.
-Everything after that (hosting, the custom domain, HTTPS) works exactly
-the way your current site already does, because from GitHub's point of
-view, nothing has changed about *what kind* of site this is — only what's
-inside it.
+## 2. Live pages (what build.py actually generates)
 
-This directly satisfies scope section 20 ("Preferred architecture... Static
-HTML/CSS/JS → GitHub Repository → GitHub Pages") and section 21
-("Separation of Responsibilities" — Python handles generation only, never
-serving).
+18 pages, all wired into the nav/footer:
 
----
+| URL | Template | Source |
+|---|---|---|
+| `/` | `home.html` | `content/pages/home.md` |
+| `/paranormal-investigation/` | `paranormal.html` | `content/pages/paranormal-investigation.md` |
+| `/occult-practice/` | `occult.html` | `content/pages/occult-practice.md` |
+| `/about/` | `about.html` | `content/pages/about.md` |
+| `/contact/` | `contact.html` | `content/pages/contact.md` |
+| `/titles-note/` | `titles_note.html` | `content/pages/titles-note.md` |
+| `/crystals/` | `crystals.html` | `content/pages/crystals.md` + `CRYSTALS` list in `build.py` |
+| `/crystals/{slug}/` × 11 | `crystal_category.html` | `CRYSTALS` list in `build.py` (no per-category .md files) |
+| `/404.html` | `404.html` | — |
 
-## 3. Why a hand-built generator instead of Jekyll, Hugo, or Eleventy
+Plus `robots.txt`, `sitemap.xml`, `CNAME` written straight into `docs/`.
 
-The scope document mentioned reusing "the existing Python/Markdown
-approach." Rather than introducing Ruby (Jekyll) or a JS toolchain (Hugo,
-Eleventy, 11ty), the generator is a single dependency-light Python script
-using three libraries:
+Nav bar: Home · Paranormal Investigation · Occult Practice · Crystals · About · Contact,
+plus a persistent "Discuss a case" button. Footer repeats these and adds the titles-note link.
 
-| Library | Job |
-|---|---|
-| **Jinja2** | Template engine — same templating language used by Flask/Django, well documented, easy to extend |
-| **Markdown** | Converts article/page bodies to HTML |
-| *(front matter)* | Parsed by a small hand-written parser in `build.py` — not PyYAML, deliberately, after a dependency conflict surfaced on your machine. One less thing that can fail to `pip install` |
+### Crystals section
+`CRYSTALS` (top of `build.py`) is the single source of truth for the 11 categories —
+slug, display name, one-line description. Each category gets:
+- A cover photo at `static/images/crystals/{slug}.jpg` — shown on the `/crystals/`
+  grid (uses its own `.crystal-card` styling, separate from the gallery below). Falls
+  back to a text placeholder tile if the file is missing (`onerror` in
+  `templates/crystals.html`).
+- A folder `static/images/crystals/{slug}/` — every image file in it (any of
+  `.jpg .jpeg .png .webp .gif`) is auto-detected by `build.py`, no registration needed.
+  **The filename is the caption**: `rose-quartz.jpg` → "Rose Quartz" label. Hyphens/
+  underscores become spaces, title-cased (`caption_from_filename()` in `build.py`).
+  Empty folder → "Photos coming soon" message.
+- **Caption placement (changed 10 Oct 2026)**: the name sits in the cream space
+  *below* each photo, not overlaid on top of it — a small marigold rule under the
+  name is the only decoration. This was a deliberate fix: the old style (white text
+  over a dark gradient, on top of the photo) washed out and became unreadable on
+  light/cream-toned photos. Each photo+caption is one `.gallery-card`; only the photo
+  (`.gallery-item`) is clickable. Grid gap increased (16px → 28–36px) so tiles don't
+  feel cramped. The lightbox (enlarged view) also shows the caption below the big
+  photo, white text on the dark backdrop — this looked fine when first built but
+  turned out to have its own separate bug (caption could overlap the photo on
+  common screen sizes), fixed 16 Oct — see §5.
+- Click-to-enlarge lightbox (full-size image + caption, dark backdrop, Esc/backdrop/×
+  to close) — built into `crystal_category.html` + `static/css/crystals.css`.
+- Prev/All/Next footer nav between categories, wraps to two lines on mobile
+  (fixed 8 Oct — see §5).
 
-This keeps the whole toolchain to two `pip install` commands
-(`jinja2 markdown`) and one script. No Node.js, no Ruby, no build
-framework to learn — which matters since you're the one maintaining this
-long-term, not a dev team.
+As of this writing: all 11 cover photos are done. Only `bracelets/` has photos inside
+its detail folder (3 test files, not yet renamed to real stone names — see §4). The
+other 10 category folders are empty and show "Photos coming soon".
 
----
-
-## 4. Content model: everything is a file
-
-Per section 16 of the scope ("allow Saurhin to create an article by adding
-a Markdown file"), the entire site's content lives as plain `.md` files
-with YAML-style front matter — no database, no admin panel.
-
-```
-content/
-├── pages/          → Home, About, Consultations, Experiences, Contact
-├── services/        → one file per service (8 files = 8 services)
-└── blog/             → one file per article
-```
-
-Each file looks like this:
-
-```markdown
----
-title: "Crystal Healing"
-slug: "crystal-healing"
-order: 1
-icon: "gem"
-summary: "Crystal-based energy work and guidance for focus, balance and support."
----
-
-Body content in Markdown goes here.
-```
-
-`build.py` reads every file in a folder, turns the Markdown body to HTML,
-and hands the front-matter fields to a template as variables. **Publishing
-a new blog post or adding a new service is: drop in a new `.md` file, run
-`python build.py`.** No template editing required for routine content
-work — this satisfies the "clean, maintainable Git/Markdown publishing
-workflow" required in section 1.13 and the blog requirements in section 16.
-
----
-
-## 5. Templates: one shared shell, page-specific bodies
+## 3. Templates & content
 
 ```
 templates/
-├── base.html              ← shared header, nav, footer, <head>/SEO block
-├── home.html
-├── about.html
-├── services_index.html
-├── service.html            ← one template renders all 8 service pages
-├── consultations.html
-├── experiences.html
-├── contact.html
-├── blog_index.html
-├── blog_post.html
-└── 404.html
+  base.html              nav, footer, <head>, asset version query string
+  home.html, paranormal.html, occult.html, about.html,
+  contact.html, titles_note.html, crystals.html,
+  crystal_category.html  — all live, all used
+  404.html                — live
+
+content/pages/*.md        front-matter + markdown body per standalone page
+                           (home/paranormal/occult pages: most real copy actually
+                           lives in the .html templates, not the .md — .md is
+                           mostly front-matter for those three)
 ```
 
-Jinja2's template inheritance (`{% extends "base.html" %}`) means the
-header/nav/footer are defined exactly once. Change the phone number, the
-nav links, or the footer copy in `base.html`, and it updates across all 18
-generated pages in one edit — no risk of the About page's footer drifting
-out of sync with the Contact page's.
+### Dead weight still sitting in the project (not built, not linked, safe to ignore or delete)
+- `templates/blog_index.html`, `blog_post.html`, `consultations.html`,
+  `experiences.html`, `service.html`, `services_index.html` — left over from an
+  earlier version of the brief (blog + paid consultations + service catalogue).
+  `build.py` never renders these; nothing links to them. They cost nothing live but
+  clutter the templates folder.
+- `content/blog/`, `content/services/` — empty, same story.
+- `static/images/blog/`, `chakras.png`, `hecate.png`, `hero_image.jpg` — **deleted
+  10 Oct 2026** (confirmed unreferenced outside the dead blog templates; removing
+  them also got the project zip under the 30 MB upload limit). If needed again,
+  they're still in earlier zips.
+- Root-level one-off scripts from the Antigravity session: `write_cat_tmpl.py`,
+  `write_crystals.py`, `write_crystals_full.py`, `fix_arrow.py`, `fix_nav.py` — these
+  were used once to scaffold the crystal templates/content and are not part of the
+  build pipeline (`build.py` doesn't call them). Hardcoded Windows paths from that
+  machine. Safe to delete whenever; not deleted yet because it hasn't been asked for.
+- `README.md` — also inherited from Antigravity, describes the old blog/consultations
+  plan. Not corrected yet.
 
-`service.html` is a single template, not eight — `build.py` loops over
-every file in `content/services/` and renders each one through it. Adding
-a ninth service later means adding one `.md` file; the template, routing,
-and navigation all handle it automatically, matching the scope's
-requirement that "the service architecture should allow new services to
-be added later without restructuring the entire website" (section 10).
+None of the above affects the live site — `docs/` only contains what's actually linked.
 
----
+## 4. Known content gaps (not bugs — waiting on real content)
 
-## 6. `build.py`: what it actually does, step by step
+- 10 of 11 crystal categories have no detail photos yet (cover photo only).
+- `bracelets/` detail folder has 3 placeholder photos: `bracelets1.jpg`,
+  `bracelets2.jpg`, `bracelets..jpg` (typo'd double-dot filename, renders fine as a
+  caption but should be renamed/removed when real photos go in).
+- To add real photos to any category: drop files named after the stone
+  (`clear-quartz.jpg`) into `static/images/crystals/{slug}/`, rebuild, push. No code
+  changes needed — the filename becomes the caption automatically.
 
-1. **Load** every Markdown file in `content/services/` and `content/blog/`,
-   parsing front matter and converting the body to HTML.
-2. **Sort** services by their `order` field, blog posts by `date`
-   (newest first).
-3. **Render** each service through `service.html`, each post through
-   `blog_post.html`, writing output to `docs/services/<slug>/index.html`,
-   `docs/blog/<slug>/index.html`, etc. — pretty URLs, no `.html` extension
-   visible.
-4. **Render** the fixed pages (home, about, consultations, experiences,
-   contact) with their own dedicated templates.
-5. **Generate `sitemap.xml`** from every URL just rendered, and
-   **`robots.txt`** pointing to it.
-6. **Copy** the whole `static/` folder (CSS, JS, images) into
-   `docs/static/`.
-7. **Write `CNAME`** (`tantrasya.in`) and `.nojekyll` into `docs/`, so
-   GitHub Pages keeps serving your custom domain and doesn't try to run
-   its own Jekyll processing over the output.
+## 5. Fix log
 
-Every run wipes and fully regenerates `docs/` — nothing in that folder is
-ever hand-edited, which is what makes it safe to treat `docs/` as pure
-build output rather than a second copy of your content.
+Chronological, most recent first. Add a line here every time a change ships.
 
-### `--serve`
+- **16 Oct 2026** — Fixed: the enlarged (lightbox) photo caption could land on
+  top of the photo instead of below it, on common screen sizes (confirmed on
+  1366×768, a typical laptop resolution, and any short/wide window). Cause:
+  the caption was pinned a fixed 28px from the *browser window's* bottom edge
+  (`position: fixed`), not tied to the photo's actual bottom edge — so on a
+  short window, or a landscape-shaped photo that renders tall, the two
+  overlapped. Fix: the photo and its caption are now one column
+  (`.lightbox-frame`) that centers as a unit, so the caption always sits a
+  fixed 16px below wherever the photo's bottom edge actually lands, on any
+  screen size or photo shape. Verified at 1200×650, 1366×768, 1200×1000 and
+  on mobile (390×844) — no overlap at any of them. The gallery-grid caption
+  (Option A, name below the photo on cream) was not affected by this bug and
+  needed no change.
+- **10 Oct 2026** — Deleted unused dead-weight images (`static/images/blog/`,
+  `chakras.png`, `hecate.png`, `hero_image.jpg`, ~16 MB) — confirmed referenced only
+  by the never-rendered blog templates, so unreachable on the live site either way.
+  Also got the project zip back under the 30 MB delivery limit.
+- **10 Oct 2026** — Crystal gallery caption redesign: name moved from an overlay on
+  the photo (white text + dark gradient, which washed out on light/cream photos) to
+  the cream space below the photo, with a small marigold rule. Grid gap widened for
+  breathing room. Markup is now `.gallery-card` (photo + caption as siblings) instead
+  of the caption being absolutely positioned inside `.gallery-item`. Lightbox caption
+  left unchanged at the time — incorrectly assumed to already be fine; it had its own
+  overlap bug, found and fixed 16 Oct (see that entry above).
+- **9 Oct 2026** — Rewrote this ARCHITECTURE.md from scratch to match the real,
+  current codebase (previous version was the stale Antigravity doc describing an
+  unbuilt blog/consultations plan). Established going forward: update §5 here with
+  every change.
+- **8 Oct 2026** — Crystal photo captions (first version): filename → display caption,
+  shown on gallery thumbnails and in the lightbox (`caption_from_filename()` in
+  `build.py`).
+- **8 Oct 2026** — Fixed: prev/All/Next nav row (`.crystal-nav`) overflowed off the
+  right edge on phones (~390px) on every one of the 11 category pages — two
+  `min-width: 140px` columns didn't fit next to the middle button. Added a
+  `@media (max-width: 640px)` rule so it wraps and centers instead.
+- **7 Oct 2026** — Added "Crystals" to the contact form's subject dropdown (was
+  missing after the Crystals section was added).
+- **7 Oct 2026** — Re-applied three fixes that had regressed in a zip built from an
+  earlier branch: mobile hero layout (Paranormal/Occult/About stacked to one column
+  again instead of squeezing into a 67px image), missing `og-cover.jpg` social
+  preview image, contact form submit button reverting to the literal string
+  "Send message" instead of its original label after sending.
+- **19 Sep 2026** — First pass on the Antigravity/Sonnet 4.6 build: mobile hero fix,
+  `og-cover.jpg` generated, form button label fix, removed then-unused
+  blog/consultations/services templates (these were later reintroduced in a
+  subsequent zip — see 7 Oct entry — and are currently still present as dead code,
+  §3).
 
-`python build.py --serve` runs the same build, then starts a local web
-server (`http://localhost:8080/`) and opens it in your browser — the
-same static server logic GitHub Pages uses in production, run locally, so
-what you preview is what actually goes live.
-
-### Cache-busting
-
-Every CSS/JS `<link>`/`<script>` tag is suffixed with `?v=<timestamp>`,
-regenerated on every build. This forces browsers to fetch the latest
-version instead of serving a stale cached copy after a design change —
-a real issue we hit and fixed during development.
-
----
-
-## 7. Design system
-
-### Color
-
-Scope section 3 asked for warm, non-black, non-grey, non-generic-pastel
-colors; a later request asked explicitly for something more colorful and
-saturated than a muted palette. The resolution: a palette pulled from
-**materials used in Indian ritual practice** rather than a generic
-wellness-brand palette —
-
-| Token | Color | Drawn from |
-|---|---|---|
-| `--cream` | warm papaya | base surface |
-| `--marigold` | marigold gold | ritual flowers |
-| `--terracotta` | sindoor red | vermillion |
-| `--plum` | twilight plum | dusk sky, mystical |
-| `--moss` | tulsi green | grounding |
-| `--indigo` | deep dusk indigo | replaces black entirely for dark sections |
-| `--ink` | ember brown | replaces black/grey for all text |
-
-All defined as CSS custom properties at the top of `static/css/style.css`
-— changing a brand color site-wide is a one-line edit.
-
-### Type
-
-**Fraunces** (display serif — warm, characterful curves, avoids the
-generic "wellness Playfair" look) paired with **Work Sans** (body). Loaded
-from Google Fonts in `base.html`.
-
-### The arch motif
-
-A recurring curved "threshold" shape — in the logo mark, the homepage
-hero image frame, and conceptually through the site — chosen to echo the
-brand line "an intimate practice exploring the seen and unseen" (section
-5) without borrowing any specific religious iconography.
-
-### Layout
-
-Section 25 asked for calm, subtle interaction — gentle hover states,
-smooth transitions, no heavy parallax or flashing effects. Only CSS
-transitions are used (button hover lifts, card hover shadows); no
-animation libraries.
-
----
-
-## 8. Page-by-page mapping back to your scope
-
-| Scope section | What was built |
-|---|---|
-| §6–7 Navigation & Sitemap | `base.html` nav list drives header + mobile menu + footer from one config array in `build.py` |
-| §8 Homepage | Hero, trust strip, about teaser, 8-service grid, testimonials, consultations teaser, 3 featured posts, closing CTA |
-| §9 About | Placeholder structure ready for Saurhin's real bio — marked, not fabricated (per your explicit "do not invent credentials" instruction) |
-| §10 Services | 8 individual pages, one shared template, auto-listed on `/services/` |
-| §11 Consultations & Fees | Full pricing table transcribed exactly: ₹1,500 / ₹501 / ₹5,100 / ₹7,100+travel / material+₹1,000 |
-| §12 Experiences | Placeholder testimonial cards, clearly marked for replacement — never fabricated |
-| §13–15 Contact form | Name / Email / Enquiry type / Message fields, Formspree endpoint, honeypot spam field, JS-driven success/error states, no backend |
-| §16–19 Blog | Markdown + front matter, categories, clean URLs, related-posts, image support |
-| §20–21 Technical architecture | Covered in §2–3 above |
-| §22 SEO | Every page: unique `<title>`, meta description, canonical URL, Open Graph tags — generated automatically from front matter |
-| §23 Responsive design | Mobile nav collapses to a hamburger menu; grid layouts collapse from 4→2→1 columns; hero reflows to single column |
-| §24 Performance | No JS frameworks, no animation libraries, system-loaded fonts with `display=swap`, minimal custom JS (~60 lines total) |
-| §26 Content integrity | No invented credentials, testimonials, or claims anywhere — every placeholder is explicitly labeled as such in the file |
-| §27 Deliverables | All checked off except the three items still pending real content (see below) |
-| §28 Phase 2 | Untouched — no marketing, ads, or campaign infrastructure included |
-
----
-
-## 9. What's real vs. what's still placeholder
-
-Being direct about this, since section 26 was explicit about not
-fabricating content:
-
-**Fully real and functional:**
-- Consultation pricing (transcribed exactly from your scope doc)
-- Service descriptions (written to reflect what you described, but see
-  note below)
-- Site structure, navigation, SEO, responsive behavior, contact form
-  mechanics, blog engine
-
-**Still placeholder — clearly marked in the files, not hidden:**
-- **Testimonials** (homepage + Experiences page) — marked
-  `[Placeholder — replace with a genuine testimonial]`
-- **About page biography** — marked with `[...]` where your real
-  background goes
-- **Service page body copy** — written to be accurate in *shape* (what
-  each service is, how a session runs) but not sourced from your existing
-  site's actual wording, since that wasn't provided as text. Worth a pass
-  to align with your original phrasing where it matters.
-- **Formspree endpoint** — needs your real form ID before the contact
-  form actually delivers mail
-
----
-
-## 10. What's deliberately *not* built (by design, not oversight)
-
-Per section 28 of your scope, explicitly excluded from this phase:
-
-- No marketing/advertising infrastructure
-- No analytics beyond what you might add later
-- No CMS admin panel — content management is Git + a text editor, by design
-- No database — pricing, services, and posts all live as files in the
-  repo, which is also your backup
-- No server-rendered logic of any kind — the contact form is the only
-  "dynamic" piece, and it's handled entirely by a third-party static form
-  service (Formspree), keeping the hosting itself 100% static
-
----
-
-## 11. The day-to-day workflow, going forward
+## 6. Design tokens (static/css/style.css)
 
 ```
-1. Edit or add a .md file in content/
-2. python build.py --serve      ← preview locally at localhost:8080
-3. Happy with it?
-4. git add .
-5. git commit -m "..."
-6. git push                      ← live on tantrasya.in within a few minutes
+--cream        #FBEEDA   page background
+--cream-deep   #F5DFB8   alternating section background
+--ink          #3A2013   primary text
+--ink-soft     #6E4B34   secondary text
+--marigold     #E89327   primary accent
+--terracotta   #C1442C   secondary accent
+--plum         #6E2D63   mystical accent
+--moss         #4C6B37   grounding accent
+--indigo       #2B2350   dark section background
+--font-display "Fraunces", Georgia, serif
+--font-body    "Work Sans", sans-serif
+```
+No black, no grey/pastel — warm palette by design (stated requirement).
+
+## 7. Site identity / config (top of build.py)
+
+```
+name:        Tantrasya
+tagline:     Paranormal Investigation & Occult Practice
+url:         https://tantrasya.in
+practitioner: Saurhin
+email:       Tantrasya@gmail.com
+city:        Mumbai
+formspree:   https://formspree.io/f/xjykkejp   (contact form backend)
 ```
 
-That's the entire publishing loop — no build servers, no deploy keys
-beyond what GitHub Pages already had configured, no new infrastructure
-to maintain beyond what existed before this rebuild.
+## 8. Not e-commerce
+
+The Crystals section is a catalogue, not a store — no prices, no cart, no checkout.
+Every category and every "Enquire" button routes to `/contact/`, where the subject
+dropdown includes a "Crystals" option. The intended flow is: browse photos → call or
+fill the form → human conversation. This was a deliberate choice, not a missing
+feature.
